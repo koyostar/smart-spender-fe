@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { getUser } from '../../utilities/users-service';
-import Home from '../Home/Home';
-import CreateExpense from '../CreateExpense/CreateExpense';
-import History from '../History/History';
-import NavBar from '../../components/NavBar/NavBar';
-import AuthPage from '../AuthPage/AuthPage';
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import { getUser } from "../../utilities/users-service";
+import Home from "../Home/Home";
+import CreateExpense from "../CreateExpense/CreateExpense";
+import History from "../History/History";
+import NavBar from "../../components/NavBar/NavBar";
+import AuthPage from "../AuthPage/AuthPage";
 
 function App() {
   const [user, setUser] = useState(getUser());
 
   return (
     <main className="App">
-      { user ?
+      {user ? (
         <>
           <NavBar user={user} setUser={setUser} />
           <Routes>
@@ -22,9 +22,9 @@ function App() {
             <Route path="/expenses/history" element={<History />} />
           </Routes>
         </>
-        :
+      ) : (
         <AuthPage setUser={setUser} />
-      }
+      )}
     </main>
   );
 }
