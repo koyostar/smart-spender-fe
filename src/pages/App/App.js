@@ -23,7 +23,10 @@ function App() {
           </Routes>
         </>
       ) : (
-        <AuthPage setUser={setUser} />
+        <Routes>
+          <Route path="/signup" element={<AuthPage setUser={setUser} />} />
+          <Route path="/login" element={<AuthPage setUser={setUser} />} />
+        </Routes>
       )}
     </main>
   );
