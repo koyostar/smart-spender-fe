@@ -1,18 +1,20 @@
-import { useState } from 'react';
-import SignUpForm from '../../components/SignUpForm/SignUpForm';
-import LoginForm from '../../components/LoginForm/LoginForm';
+import SignUpForm from "../../components/SignUpForm/SignUpForm";
+import LoginForm from "../../components/LoginForm/LoginForm";
+import { useLocation } from "react-router-dom";
 
-export default function AuthPage({ setUser }) {
-  const [showSignUp, setShowSignUp] = useState(false);
+function AuthPage({ setUser }) {
+  const location = useLocation();
+
   return (
-    <main>
-      <h1>Smart Spender</h1>
-      <button onClick={() => setShowSignUp(!showSignUp)}>{showSignUp ? 'Log In' : 'Sign Up'}</button>
-      { showSignUp ?
+    <div className="bg-black h-[100vh] text-white">
+      <main className="container flex mx-auto h-[80vh] items-center justify-center">
+        {location.pathname === "/signup" ? (
           <SignUpForm setUser={setUser} />
-          :
+        ) : location.pathname === "/login" ? (
           <LoginForm setUser={setUser} />
-      }
-    </main>
+        ) : null}
+      </main>
+    </div>
   );
 }
+export default AuthPage;
