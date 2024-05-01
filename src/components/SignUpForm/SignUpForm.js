@@ -1,18 +1,37 @@
 import { useState } from "react";
+import { signUpService } from "../../utilities/users-service";
+import { useNavigate } from "react-router-dom";
 
 function SignUpForm() {
-  const [formData, setFormData] = useState({
+  const [userData, setUserData] = useState({
     email: "",
     username: "",
     password: "",
     repeat: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
+    setUserData({
+      ...userData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const user = await signUpService(userData);
+      console.log(user);
+      if (user && !user.error) {
+        navigate("/home");
+      } else {
+        navigate("/signup");
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -21,7 +40,7 @@ function SignUpForm() {
         Create an account to start using{" "}
         <span className="text-[#57ABD8] text-3xl">Smart Spender</span>
       </header>
-      <form className="p-4 mt-4 rounded-lg">
+      <form className="p-4 mt-4 rounded-lg" onSubmit={handleSubmit}>
         <div className="mb-6">
           <label
             htmlFor="email"
@@ -33,7 +52,7 @@ function SignUpForm() {
             type="email"
             id="email"
             name="email"
-            value={formData.email}
+            value={userData.email}
             onChange={handleChange}
             className="shadow-sm border border-[#57ABD8] text-white text-sm rounded-lg focus:ring-[#57ABD8] focus:border-[#57ABD8] block w-full p-2.5"
             placeholder="name@gmail.com"
@@ -51,7 +70,7 @@ function SignUpForm() {
             type="username"
             id="username"
             name="username"
-            value={formData.username}
+            value={userData.username}
             onChange={handleChange}
             className="shadow-sm border border-[#57ABD8] text-white text-sm rounded-lg focus:ring-[#57ABD8] focus:border-[#57ABD8] block w-full p-2.5"
             required
@@ -68,7 +87,7 @@ function SignUpForm() {
             type="password"
             id="password"
             name="password"
-            value={formData.password}
+            value={userData.password}
             onChange={handleChange}
             className="shadow-sm border border-[#57ABD8] text-white text-sm rounded-lg focus:ring-[#57ABD8] focus:border-[#57ABD8] block w-full p-2.5"
             required
@@ -85,7 +104,7 @@ function SignUpForm() {
             type="password"
             id="repeat-password"
             name="repeat"
-            value={formData.repeat}
+            value={userData.repeat}
             onChange={handleChange}
             className="shadow-sm border border-[#57ABD8] text-white text-sm rounded-lg focus:ring-[#57ABD8] focus:border-[#57ABD8] block w-full p-2.5"
             required
@@ -95,7 +114,7 @@ function SignUpForm() {
           type="submit"
           className="text-white bg-[#57ABD8] hover:bg-[#5D95D3] focus:ring-2 focus:outline-none focus:ring-[#57ABD8] font-medium text-lg px-3 py-2.5 text-center w-full rounded-lg"
         >
-          REGISTER
+          SIGN UP
         </button>
       </form>
     </div>
@@ -103,3 +122,12 @@ function SignUpForm() {
 }
 
 export default SignUpForm;
+
+//features to consider:
+// 1. password and repeat password cannot be the same ->
+//    one option is to disable button.
+// 2. username and email address, if taken, show error ->
+//    route database error unique: true
+// 3. Indicate error for input field
+// 4. autocomplete and error prompt field not aligned to start of inputfield
+// 5. pw length set to min. 3 in db -> show prompt
