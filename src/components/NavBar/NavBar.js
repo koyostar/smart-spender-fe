@@ -14,9 +14,9 @@ export default function NavBar({ user, setUser }) {
       <h1>Welcome, {user.name}</h1>
       <Link to="/home">Home</Link>
       &nbsp; | &nbsp;
-      <Link to="/create">Create</Link>
+      <Link to="/expenses/create">Create</Link>
       &nbsp; | &nbsp;
-      <Link to="/history">History</Link>
+      <Link to="/expenses/history">History</Link>
       &nbsp; | &nbsp;
       <Link to="" onClick={handleLogOut}>
         Log Out
