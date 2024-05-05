@@ -1,24 +1,28 @@
-import { Link } from "react-router-dom";
-import * as userService from "../../utilities/users-service";
+import { Link, useNavigate } from "react-router-dom";
+import { logOutService } from "../../utilities/users-service";
 
 export default function NavBar({ user, setUser }) {
-  function handleLogOut() {
+  const navigate = useNavigate();
+
+  const handleLogOut = (e) => {
+    e.preventDefault();
     // Remove token using the user service
-    userService.logOut();
+    logOutService();
     // Update user state in App
     setUser(null);
-  }
+    navigate("/");
+  };
 
   return (
     <nav>
-      <h1>Welcome, {user.name}</h1>
+      <h1>Welcome, {user.username}</h1>
       <Link to="/home">Home</Link>
       &nbsp; | &nbsp;
       <Link to="/create">Create</Link>
       &nbsp; | &nbsp;
       <Link to="/history">History</Link>
       &nbsp; | &nbsp;
-      <Link to="" onClick={handleLogOut}>
+      <Link to="/" onClick={handleLogOut}>
         Log Out
       </Link>
     </nav>
