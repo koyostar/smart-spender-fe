@@ -1,11 +1,13 @@
 import React, {useState} from 'react'
 import * as expenseService from "../../utilities/expense-service"
+import SharedWith from '../SharedWith/SharedWith'
 
 export default function Expense() {
 
   const [expenseDetails, setExpenseDetails] = useState({category: 'travel'})
   const [error, setError] = useState('')
   const [category, setCategory] = useState('Travel')
+  const [friends, setFriends] = useState(1)
 
   function handleSelect(evt) {
     setCategory(evt.target.value)
@@ -24,7 +26,6 @@ export default function Expense() {
     } catch (error) {
       setError('Expense failed to log')
     }
-
   }
 
   return (
@@ -44,12 +45,16 @@ export default function Expense() {
                 <label>Amount</label>
                 <input type='number' name='amount' onChange={handleChange} required></input>
                 <br />
-                <label>Shared with:</label>
-                <br />
                 <label>Description</label>
                 <input type='text' name='description' onChange={handleChange}></input>
                 <div>
-                <button type='submit'>+ Add expense</button>
+                <label>Shared with:</label>
+                <input type="number" name="shared-with" value={friends} onChange={e => setFriends(e.target.value)} placeholder='number of friends'></input>
+                <br />
+                <SharedWith friends={friends} />
+                </div>                
+                <div>
+                <button type='submit' disabled={friends <= 0}>+ Add expense</button>
                 </div>
             </form>
         </div>
