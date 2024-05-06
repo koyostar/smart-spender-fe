@@ -1,15 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
-import { logOutService } from "../../utilities/users-service";
 import { TbUserSquare } from "react-icons/tb";
+import { logOutService } from "../../utilities/users-service";
 
 export default function NavBar({ user, setUser }) {
   const navigate = useNavigate();
 
   const handleLogOut = (e) => {
     e.preventDefault();
-    // Remove token using the user service
     logOutService();
-    // Update user state in App
     setUser(null);
     navigate("/");
   };
@@ -21,26 +19,32 @@ export default function NavBar({ user, setUser }) {
           <span className="self-center text-4xl font-bebas whitespace-nowrap mr-10">
             Smart Spender
           </span>
-          <Link to="/home" className="mr-6 text-md  text-white hover:underline">
+          <Link to="/home" className="mr-6 text-md text-white hover:underline">
             Home
           </Link>
           <Link
             to="/create"
-            className="text-md  text-white hover:underline mr-6"
+            className="text-md text-white hover:underline mr-6"
           >
             Create
           </Link>
-          <Link to="/history" className="text-md  text-white hover:underline">
+          <Link
+            to="/history"
+            className="text-md text-white hover:underline mr-6"
+          >
             History
+          </Link>
+          <Link to="/friends" className="text-md text-white hover:underline">
+            My Friends
           </Link>
         </div>
         <div className="flex items-center">
           <TbUserSquare className="text-4xl text-[#57ABD8] mr-2" />
-          <span className="mr-6 text-sm">{user.username}</span>
+          <span className="text-sm">{user.username}</span>
           <Link
             to="/"
             onClick={handleLogOut}
-            className="mr-6 text-sm hover:underline"
+            className="text-sm hover:underline ml-6"
           >
             Logout
           </Link>
