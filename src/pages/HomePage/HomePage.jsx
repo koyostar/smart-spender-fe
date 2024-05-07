@@ -1,14 +1,7 @@
 import React from "react";
-import Statistics from "../../components/Statistics/Statistics";
-import { getUser } from "../../utilities/users-service";
+import UserSummary from "../../components/UserSummary/UserSummary.jsx";
+import SummaryTabs from "../../components/Tabs/SummaryTabs.jsx";
 
 export default function Home() {
-  return (
-    <div>
-      <div className="statistics">
-        <h1>Hi {getUser().username}</h1>
-        <Statistics />
-      </div>
-    </div>
-  );
+  return <UserSummary />;
 }
