@@ -1,86 +1,117 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import {
-  getFriendAPI,
-  addFriendAPI,
-  deleteFriendAPI,
-} from "../../utilities/friends-api";
+  getAllFriendsService,
+  searchFriendsService,
+  addFriendService,
+  removeFriendService,
+} from "../../utilities/friends-service";
 
-function FriendsPage() {
+const FriendsPage = ({ userId }) => {
   const [friends, setFriends] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     const fetchFriends = async () => {
-      if (searchTerm) {
-        try {
-          const data = await getFriendAPI(searchTerm);
-          setFriends(data.user || []);
-        } catch (error) {
-          console.error("Failed to fetch friends:", error);
-          setFriends([]);
-        }
+      try {
+        const fetchedFriends = await getAllFriendsService(userId);
+        console.log(fetchedFriends);
+        setFriends(fetchedFriends.friends);
+      } catch (error) {
+        console.error("Error fetching friends:", error);
       }
     };
     fetchFriends();
-  }, [searchTerm]);
+  }, [userId]);
+
+  const handleSearch = async () => {
+    try {
+      const results = await searchFriendsService(searchTerm);
+      const filteredResults = results.filter(
+        (result) =>
+          !friends.some((friend) => friend.username === result.username)
+      );
+      setSearchResults(filteredResults);
+    } catch (error) {
+      console.error("Search failed:", error);
+    }
+  };
 
   const handleAddFriend = async (username) => {
     try {
-      await addFriendAPI(username);
-      console.log("Friend added successfully!");
-      setFriends((prev) => [...prev, { username, _id: Date.now() }]);
+      const addedFriend = await addFriendService(username);
+      setSearchTerm("");
+      setFriends([...friends, addedFriend]);
+      setSearchResults(
+        searchResults.filter((user) => user.username !== username)
+      );
     } catch (error) {
       console.error("Failed to add friend:", error);
     }
   };
 
-  const handleDeleteFriend = async (username) => {
+  const handleRemoveFriend = async (username) => {
     try {
-      await deleteFriendAPI(username);
-      console.log("Friend removed successfully!");
-      setFriends((prev) =>
-        prev.filter((friend) => friend.username !== username)
-      );
+      await removeFriendService(username);
+      setFriends(friends.filter((friend) => friend.username !== username));
     } catch (error) {
       console.error("Failed to remove friend:", error);
     }
   };
 
   return (
-    <div className="max-w-screen">
-      <div className="px-6 relative">
-        <header className="mx-6 px-6 font-inter font-thin text-2xl">
-          My Friends
-        </header>
+    <div className="container mx-auto px-4">
+      <div className="search-bar my-4">
         <input
           type="text"
-          placeholder="Search Friends..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="p-2 text-black"
+          placeholder="Search for your friends here..."
+          className="text-black border p-2 w-full"
         />
-        <div className="grid grid-cols-3 p-6 m-2">
-          {friends.length === 0 ? (
-            <p className="mx-4 font-inter font-thin text-xl">
-              No friends found
-            </p>
-          ) : (
-            friends.map((friend) => (
-              <div key={friend._id} className="p-2">
-                {friend.username}
-                <button onClick={() => handleAddFriend(friend.username)}>
-                  Add
-                </button>
-                <button onClick={() => handleDeleteFriend(friend.username)}>
-                  Remove
-                </button>
-              </div>
-            ))
-          )}
-        </div>
+        <button
+          onClick={handleSearch}
+          className="bg-blue-500 text-white p-2 mt-3 rounded"
+        >
+          Search
+        </button>
+      </div>
+      <h2 className="my-4 font-bold">Pending Friends to be added :</h2>
+      <div className="results mt-4">
+        {searchResults.map((user) => (
+          <div
+            key={user._id}
+            className="flex justify-between items-center bg-[#57ABD8] p-2 my-2"
+          >
+            <span>{user.username}</span>
+            <button
+              onClick={() => handleAddFriend(user.username)}
+              className="bg-green-500 text-white p-2 rounded"
+            >
+              Add Friend
+            </button>
+          </div>
+        ))}
+      </div>
+      <h2 className="my-4 font-bold">My Friends :</h2>
+      <div className="friends-list">
+        {friends.map((friend) => (
+          <div
+            key={friend._id}
+            className="flex justify-between items-center bg-[#57ABD8] p-2 my-2"
+          >
+            <span>{friend.username}</span>
+            <button
+              onClick={() => handleRemoveFriend(friend.username)}
+              className="bg-red-500 text-white p-2 rounded"
+            >
+              Remove Friend
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );
-}
+};
 
 export default FriendsPage;
