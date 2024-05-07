@@ -10,6 +10,9 @@ import AuthPage from "../AuthPage/AuthPage";
 import Expense from "../../components/Expense/Expense";
 import Transfer from "../../components/Transfer/Transfer";
 import FriendsPage from "../../pages/FriendsPage/FriendsPage";
+import UserSummary from "../../components/UserSummary/UserSummary";
+import Debt from "../../components/UserSummary/Debt";
+import Payment from "../../components/UserSummary/Payment";
 
 function App() {
   const [user, setUser] = useState(getUser());
@@ -25,6 +28,10 @@ function App() {
               path="/home"
               element={<Home user={user} setUser={setUser} />}
             />
+            <Route path="/summary" element={<UserSummary />} />
+            <Route path="/debt" element={<Debt />} />
+            <Route path="/payment" element={<Payment />} />
+
             <Route
               path="/create"
               element={<Create user={user} setUser={setUser} />}
