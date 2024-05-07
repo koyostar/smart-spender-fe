@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { signUpService } from "../../utilities/users-service";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function SignUpForm({ setUser }) {
   const [userData, setUserData] = useState({
@@ -36,18 +37,20 @@ function SignUpForm({ setUser }) {
   };
 
   return (
-    <div className="container bg-[#004F8F] mx-auto max-w-md px-4 py-8 rounded-lg">
-      <header className="text-white font-bold text-2xl text-center">
-        Create an account to start using{" "}
-        <span className="text-[#57ABD8] text-3xl">Smart Spender</span>
-      </header>
-      <form className="p-4 mt-4 rounded-lg" onSubmit={handleSubmit}>
+    <div className="container bg-neutral-400 mx-auto max-w-md p-4">
+      <form className="p-2" onSubmit={handleSubmit} autoComplete="off">
+        <header className="text-white font-inter font-light text-2xl mb-4">
+          Register with{" "}
+          <span className="text-[#004F8F] text-3xl font-bold">
+            $mart $pender
+          </span>
+        </header>
         <div className="mb-6">
           <label
             htmlFor="email"
-            className="block mb-2 text-sm font-medium text-white"
+            className="block mb-2 text-sm font-inter font-normal text-gray-600"
           >
-            Email
+            Email Address
           </label>
           <input
             type="email"
@@ -55,15 +58,16 @@ function SignUpForm({ setUser }) {
             name="email"
             value={userData.email}
             onChange={handleChange}
-            className="shadow-sm border border-[#57ABD8] text-black text-sm rounded-lg focus:ring-[#57ABD8] focus:border-[#57ABD8] block w-full p-2.5"
-            placeholder="name@gmail.com"
+            className="bg-neutral-300 text-gray-900 text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text font-inter font-extralight border-none"
+            placeholder="name@email.com"
+            autoComplete="off"
             required
           />
         </div>
         <div className="mb-6">
           <label
             htmlFor="username"
-            className="block mb-2 text-sm font-medium text-black"
+            className="block mb-2 text-sm font-inter font-normal text-gray-600"
           >
             Username
           </label>
@@ -73,14 +77,16 @@ function SignUpForm({ setUser }) {
             name="username"
             value={userData.username}
             onChange={handleChange}
-            className="shadow-sm border border-[#57ABD8] text-black text-sm rounded-lg focus:ring-[#57ABD8] focus:border-[#57ABD8] block w-full p-2.5"
+            placeholder="Username"
+            autoComplete="off"
+            className="bg-neutral-300 text-gray-900 text-sm focus:outline-none block w-full p-2.5 cursor-text font-inter font-extralight border-none"
             required
           />
         </div>
         <div className="mb-6">
           <label
             htmlFor="password"
-            className="block mb-2 text-sm font-medium text-white"
+            className="block mb-2 text-sm font-inter font-normal text-gray-600"
           >
             Password
           </label>
@@ -90,14 +96,15 @@ function SignUpForm({ setUser }) {
             name="password"
             value={userData.password}
             onChange={handleChange}
-            className="shadow-sm border border-[#57ABD8] text-black text-sm rounded-lg focus:ring-[#57ABD8] focus:border-[#57ABD8] block w-full p-2.5"
+            placeholder="Password"
+            className="bg-neutral-300 text-gray-900 text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text font-inter font-extralight border-none"
             required
           />
         </div>
         <div className="mb-6">
           <label
             htmlFor="repeat-password"
-            className="block mb-2 text-sm font-medium text-white"
+            className="block mb-2 text-sm font-inter font-normal text-gray-600"
           >
             Repeat password
           </label>
@@ -107,17 +114,24 @@ function SignUpForm({ setUser }) {
             name="repeat"
             value={userData.repeat}
             onChange={handleChange}
-            className="shadow-sm border border-[#57ABD8] text-black text-sm rounded-lg focus:ring-[#57ABD8] focus:border-[#57ABD8] block w-full p-2.5"
+            autoComplete="off"
+            placeholder="Repeat Password"
+            className="bg-neutral-300 text-gray-900 text-sm focus:ring-zinc-500 block focus:outline-none w-full p-2.5 cursor-text font-inter font-extralight border-none"
             required
           />
         </div>
         <button
           type="submit"
-          className="text-white bg-[#57ABD8] hover:bg-[#5D95D3] focus:ring-2 focus:outline-none focus:ring-[#57ABD8] font-medium text-lg px-3 py-2.5 text-center w-full rounded-lg"
+          className="text-white bg-[#004F8F] hover:bg-[#57ABD8] focus:ring-2 focus:outline-none focus:ring-gray-400 font-bebas font-normal text-3xl px-3 py-2.5 text-center w-full"
         >
           SIGN UP
         </button>
       </form>
+      <Link to="/login">
+        <span className="text-white text-md btn btn-ghost btn-sm bg-[#004F8F] hover:bg-[#57ABD8] rounded-md absolute top-4 right-4 normal-case">
+          Sign In
+        </span>
+      </Link>
     </div>
   );
 }
