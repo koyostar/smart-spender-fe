@@ -1,5 +1,5 @@
 import sendRequest from "./send-request";
-import { getUser } from "../../utilities/users-service";
+import { getUser } from "./users-service";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 

@@ -21,7 +21,10 @@ function App() {
           <NavBar user={user} setUser={setUser} />
           <Routes>
             {/* Route components in here */}
-            <Route path="/home" element={<Home />} />
+            <Route
+              path="/home"
+              element={<Home user={user} setUser={setUser} />}
+            />
             <Route
               path="/create"
               element={<Create user={user} setUser={setUser} />}
