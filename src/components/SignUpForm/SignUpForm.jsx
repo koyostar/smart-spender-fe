@@ -42,7 +42,7 @@ function SignUpForm({ setUser }) {
         <header className="text-white font-inter font-light text-2xl mb-4">
           Register with{" "}
           <span className="text-[#004F8F] text-3xl font-bold">
-            $mart $pender
+            smartspender
           </span>
         </header>
         <div className="mb-6">
