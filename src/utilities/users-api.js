@@ -20,3 +20,7 @@ export function loginAPI(credentials) {
 export function checkTokenAPI() {
   return sendRequest(`${BASE_URL}/check-token`);
 }
+
+export function findUsers() {
+  return sendRequest(`${BASE_URL}/find`);
+}
