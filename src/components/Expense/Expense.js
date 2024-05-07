@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
 import * as expenseService from "../../utilities/expense-service"
 import SharedWith from '../SharedWith/SharedWith'
+import "./Expense.css"
 
 export default function Expense() {
 
   const [expenseDetails, setExpenseDetails] = useState({category: 'travel'})
   const [error, setError] = useState('')
   const [category, setCategory] = useState('Travel')
-  const [friends, setFriends] = useState(1)
 
   function handleSelect(evt) {
     setCategory(evt.target.value)
@@ -29,7 +29,7 @@ export default function Expense() {
   }
 
   return (
-    <div>
+    <div className='expense'>
         <div className='form-container'>
             <form autoComplete='off' onSubmit={handleSubmit}>
                 <label>Date:</label>
@@ -49,12 +49,11 @@ export default function Expense() {
                 <input type='text' name='description' onChange={handleChange}></input>
                 <div>
                 <label>Shared with:</label>
-                <input type="number" name="shared-with" value={friends} onChange={e => setFriends(e.target.value)} placeholder='number of friends'></input>
                 <br />
-                <SharedWith friends={friends} />
+                <SharedWith />
                 </div>                
                 <div>
-                <button type='submit' disabled={friends <= 0}>+ Add expense</button>
+                <button type='submit'>+ Add expense</button>
                 </div>
             </form>
         </div>
