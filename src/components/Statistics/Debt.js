@@ -1,14 +1,13 @@
-import { BarChart } from "@mui/x-charts/BarChart";
-import { AxisConfig } from "@mui/x-charts";
 import { useEffect, useState } from "react";
 import { fetchStatsService } from "../../utilities/statistics-service";
 import { findUsersByID } from "../../utilities/users-api";
 
-export default function SummaryChart() {
+const DebtStats = () => {
   const [statsLoading, setStatsLoading] = useState(false);
   const [stats, setStats] = useState(null);
   const [error, setError] = useState(null);
   const [userDetails, setUserDetails] = useState({});
+  const [userDetailsArray, setUserDetailsArray] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +45,7 @@ export default function SummaryChart() {
             const userDetails = await findUsersByID(userId);
             console.log("User details for", userId, ":", userDetails); // Log user details
 
-            userDetailsMap[userId] = userDetails.user.username;
+            userDetailsMap[userId] = userDetails.user.username.toUpperCase();
           } catch (error) {
             console.error("Error fetching user details:", error);
             userDetailsMap[userId] = null;
@@ -55,6 +54,18 @@ export default function SummaryChart() {
         console.log("User details map:", userDetailsMap); // Log user details map
 
         setUserDetails(userDetailsMap);
+
+        if (stats.userExpensesOwed.usersThatOwes.length > 0) {
+          const userDetailsArray = stats.userExpensesOwed.usersThatOwes.map(
+            (item) => ({
+              username: userDetailsMap[item.user],
+              amountOwed: item.amountOwed,
+            })
+          );
+          setUserDetailsArray(userDetailsArray);
+
+          console.log("User details array:", userDetailsArray); // Log user details array
+        }
       }
     };
 
@@ -75,73 +86,40 @@ export default function SummaryChart() {
   const totalAmountToCollect = stats
     ? stats.userExpensesOwed && stats.userExpensesOwed.userExpensesOwed
     : null;
-
-  const totalAmountReceived = stats
-    ? stats.userExpensesPaid && stats.userExpensesPaid.userExpensesPaid
-    : null;
-
   const totalExpenses = stats ? stats.totalExpenses : null;
 
-  const UserOwesList = ({ usersThatOwes, userDetails }) => (
-    <div>
-      <ul>
-        {usersThatOwes.map((item, index) => (
-          <li key={index}>
-            {userDetails[item.user]} owed you {item.amountOwed}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-
-  const summaryStatsData = [
-    totalUnpaidSharedExpenses,
-    totalAmountToCollect,
-    totalExpenses,
-  ];
-
-  const summaryStatsLabel = ["Loans", "Debts", "Expenses"];
-
-  const valueFormatter = (value) => `$${value}`;
-
   return (
-    <div className="summary-chart">
-      <BarChart
-        width={450}
-        height={300}
-        layout="horizontal"
-        grid={{ vertical: true }}
-        series={[
-          {
-            data: summaryStatsData,
-            color: "#57abd8",
-            valueFormatter,
-          },
-        ]}
-        yAxis={[
-          {
-            data: summaryStatsLabel,
-            scaleType: "band",
-            categoryGapRatio: 0.3,
-          },
-        ]}
-        leftAxis={{
-          tickLabelStyle: {
-            textAnchor: "end",
-            fontSize: 12,
-            fill: "white",
-            fontWeight: "bold",
-          },
-        }}
-        bottomAxis={{
-          tickLabelStyle: {
-            textAnchor: "middle",
-            fontSize: 12,
-            fill: "white",
-          },
-        }}
-        margin={{ left: 80, right: 70 }}
-      />
+    <div className="stats-table">
+      {statsLoading && <p>Loading...</p>}
+      {stats && (
+        <table>
+          <tbody>
+            <tr>
+              <th>
+                Debts Paid<span>:</span>
+              </th>
+              <td>{totalPaidSharedExpenses}</td>
+            </tr>
+            <tr>
+              <th>
+                Debts To Collect<span>:</span>
+              </th>
+              <td>{totalAmountToCollect}</td>
+            </tr>
+            {userDetailsArray.map((userDetail, index) => (
+              <tr key={index}>
+                <ul>
+                  <li style={{ paddingLeft: "50px", textAlign: "center" }}>
+                    {userDetail.username} owes you {userDetail.amountOwed}
+                  </li>
+                </ul>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      {error && <p>Error: {error}</p>}
     </div>
   );
-}
+};
+export default DebtStats;

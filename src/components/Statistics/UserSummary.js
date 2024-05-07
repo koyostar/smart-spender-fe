@@ -29,11 +29,11 @@ const UserSummaryStats = () => {
     const fetchUserDetailsForStats = async () => {
       if (
         stats &&
-        stats.sharedExpenseOwed &&
-        stats.sharedExpenseOwed.usersThatOwes &&
-        stats.sharedExpenseOwed.usersThatOwes.length > 0
+        stats.userExpensesOwed &&
+        stats.userExpensesOwed.usersThatOwes &&
+        stats.userExpensesOwed.usersThatOwes.length > 0
       ) {
-        const userIds = stats.sharedExpenseOwed.usersThatOwes.map(
+        const userIds = stats.userExpensesOwed.usersThatOwes.map(
           (item) => item.user
         );
         console.log("User IDs:", userIds); // Log user IDs
@@ -71,7 +71,7 @@ const UserSummaryStats = () => {
     ? stats.paidSharedExpenses.totalPaid
     : null;
   const totalAmountToCollect = stats
-    ? stats.sharedExpenseOwed && stats.sharedExpenseOwed.totalAmountIsOwed
+    ? stats.userExpensesOwed && stats.userExpensesOwed.userExpensesOwed
     : null;
   const totalExpenses = stats ? stats.totalExpenses : null;
 
@@ -94,13 +94,13 @@ const UserSummaryStats = () => {
           <tbody>
             <tr>
               <th>
-                Unpaid Shared Expenses<span>:</span>
+                Loans to Return<span>:</span>
               </th>
               <td>{totalUnpaidSharedExpenses}</td>
             </tr>
             <tr>
               <th>
-                Total Amount To Collect<span>:</span>
+                Debts to Collect<span>:</span>
               </th>
               <td>{totalAmountToCollect}</td>
             </tr>

@@ -1,10 +1,8 @@
-import { BarChart } from "@mui/x-charts/BarChart";
-import { AxisConfig } from "@mui/x-charts";
 import { useEffect, useState } from "react";
 import { fetchStatsService } from "../../utilities/statistics-service";
 import { findUsersByID } from "../../utilities/users-api";
 
-export default function SummaryChart() {
+const PaymentStats = () => {
   const [statsLoading, setStatsLoading] = useState(false);
   const [stats, setStats] = useState(null);
   const [error, setError] = useState(null);
@@ -75,11 +73,6 @@ export default function SummaryChart() {
   const totalAmountToCollect = stats
     ? stats.userExpensesOwed && stats.userExpensesOwed.userExpensesOwed
     : null;
-
-  const totalAmountReceived = stats
-    ? stats.userExpensesPaid && stats.userExpensesPaid.userExpensesPaid
-    : null;
-
   const totalExpenses = stats ? stats.totalExpenses : null;
 
   const UserOwesList = ({ usersThatOwes, userDetails }) => (
@@ -94,54 +87,35 @@ export default function SummaryChart() {
     </div>
   );
 
-  const summaryStatsData = [
-    totalUnpaidSharedExpenses,
-    totalAmountToCollect,
-    totalExpenses,
-  ];
-
-  const summaryStatsLabel = ["Loans", "Debts", "Expenses"];
-
-  const valueFormatter = (value) => `$${value}`;
-
   return (
-    <div className="summary-chart">
-      <BarChart
-        width={450}
-        height={300}
-        layout="horizontal"
-        grid={{ vertical: true }}
-        series={[
-          {
-            data: summaryStatsData,
-            color: "#57abd8",
-            valueFormatter,
-          },
-        ]}
-        yAxis={[
-          {
-            data: summaryStatsLabel,
-            scaleType: "band",
-            categoryGapRatio: 0.3,
-          },
-        ]}
-        leftAxis={{
-          tickLabelStyle: {
-            textAnchor: "end",
-            fontSize: 12,
-            fill: "white",
-            fontWeight: "bold",
-          },
-        }}
-        bottomAxis={{
-          tickLabelStyle: {
-            textAnchor: "middle",
-            fontSize: 12,
-            fill: "white",
-          },
-        }}
-        margin={{ left: 80, right: 70 }}
-      />
+    <div className="stats-table">
+      {statsLoading && <p>Loading...</p>}
+      {stats && (
+        <table>
+          <tbody>
+            <tr>
+              <th>
+                Expenses Paid by Others<span>:</span>
+              </th>
+              <td>{totalSharedExpenses}</td>
+            </tr>
+            <tr>
+              <th>
+                Amount Returned<span>:</span>
+              </th>
+              <td>{totalPaidSharedExpenses}</td>
+            </tr>
+            <tr>
+              <th>
+                Amount Owed<span>:</span>
+              </th>
+              <td>{totalUnpaidSharedExpenses}</td>
+            </tr>
+          </tbody>
+        </table>
+      )}
+      {error && <p>Error: {error}</p>}
     </div>
   );
-}
+};
+export default PaymentStats;

@@ -9,13 +9,13 @@ export default function SummaryTabs() {
       <h1>Hi {user.toUpperCase()}</h1>
       <div className="tabs">
         <Link to="/summary">
-          <button className="summary-button">User Summary</button>
+          <button className="summary-button">Summary</button>
         </Link>
         <Link to="/debt">
           <button className="debt-button">Debt</button>
         </Link>
         <Link to="/payment">
-          <button className="payment-button">Payment</button>
+          <button className="payment-button">Loan</button>
         </Link>
       </div>
     </div>

@@ -1,10 +1,9 @@
-import { BarChart } from "@mui/x-charts/BarChart";
-import { AxisConfig } from "@mui/x-charts";
+import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
 import { useEffect, useState } from "react";
 import { fetchStatsService } from "../../utilities/statistics-service";
 import { findUsersByID } from "../../utilities/users-api";
 
-export default function SummaryChart() {
+export default function PaymentChart() {
   const [statsLoading, setStatsLoading] = useState(false);
   const [stats, setStats] = useState(null);
   const [error, setError] = useState(null);
@@ -94,53 +93,27 @@ export default function SummaryChart() {
     </div>
   );
 
-  const summaryStatsData = [
-    totalUnpaidSharedExpenses,
-    totalAmountToCollect,
-    totalExpenses,
+  const data = [
+    { value: totalUnpaidSharedExpenses, label: "Amount Owed" },
+    { value: totalPaidSharedExpenses, label: "Amount Returned" },
   ];
-
-  const summaryStatsLabel = ["Loans", "Debts", "Expenses"];
-
-  const valueFormatter = (value) => `$${value}`;
+  const size = {
+    width: 450,
+    height: 200,
+  };
 
   return (
     <div className="summary-chart">
-      <BarChart
-        width={450}
-        height={300}
-        layout="horizontal"
-        grid={{ vertical: true }}
+      <PieChart
         series={[
           {
-            data: summaryStatsData,
-            color: "#57abd8",
-            valueFormatter,
+            data,
+            highlightScope: { faded: "global", highlighted: "item" },
+            faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
           },
         ]}
-        yAxis={[
-          {
-            data: summaryStatsLabel,
-            scaleType: "band",
-            categoryGapRatio: 0.3,
-          },
-        ]}
-        leftAxis={{
-          tickLabelStyle: {
-            textAnchor: "end",
-            fontSize: 12,
-            fill: "white",
-            fontWeight: "bold",
-          },
-        }}
-        bottomAxis={{
-          tickLabelStyle: {
-            textAnchor: "middle",
-            fontSize: 12,
-            fill: "white",
-          },
-        }}
-        margin={{ left: 80, right: 70 }}
+        {...size}
+        margin={{ right: 200 }}
       />
     </div>
   );

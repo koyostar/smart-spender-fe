@@ -1,14 +1,14 @@
 import { BarChart } from "@mui/x-charts/BarChart";
-import { AxisConfig } from "@mui/x-charts";
 import { useEffect, useState } from "react";
 import { fetchStatsService } from "../../utilities/statistics-service";
 import { findUsersByID } from "../../utilities/users-api";
 
-export default function SummaryChart() {
+export default function DebtChart() {
   const [statsLoading, setStatsLoading] = useState(false);
   const [stats, setStats] = useState(null);
   const [error, setError] = useState(null);
   const [userDetails, setUserDetails] = useState({});
+  const [userDetailsArray, setUserDetailsArray] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +46,7 @@ export default function SummaryChart() {
             const userDetails = await findUsersByID(userId);
             console.log("User details for", userId, ":", userDetails); // Log user details
 
-            userDetailsMap[userId] = userDetails.user.username;
+            userDetailsMap[userId] = userDetails.user.username.toUpperCase();
           } catch (error) {
             console.error("Error fetching user details:", error);
             userDetailsMap[userId] = null;
@@ -55,9 +55,20 @@ export default function SummaryChart() {
         console.log("User details map:", userDetailsMap); // Log user details map
 
         setUserDetails(userDetailsMap);
+
+        if (stats.userExpensesOwed.usersThatOwes.length > 0) {
+          const userDetailsArray = stats.userExpensesOwed.usersThatOwes.map(
+            (item) => ({
+              value: item.amountOwed,
+              label: userDetailsMap[item.user],
+            })
+          );
+          setUserDetailsArray(userDetailsArray);
+
+          console.log("User details array:", userDetailsArray); // Log user details array
+        }
       }
     };
-
     fetchUserDetailsForStats();
   }, [stats]);
 
@@ -82,26 +93,6 @@ export default function SummaryChart() {
 
   const totalExpenses = stats ? stats.totalExpenses : null;
 
-  const UserOwesList = ({ usersThatOwes, userDetails }) => (
-    <div>
-      <ul>
-        {usersThatOwes.map((item, index) => (
-          <li key={index}>
-            {userDetails[item.user]} owed you {item.amountOwed}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-
-  const summaryStatsData = [
-    totalUnpaidSharedExpenses,
-    totalAmountToCollect,
-    totalExpenses,
-  ];
-
-  const summaryStatsLabel = ["Loans", "Debts", "Expenses"];
-
   const valueFormatter = (value) => `$${value}`;
 
   return (
@@ -111,16 +102,18 @@ export default function SummaryChart() {
         height={300}
         layout="horizontal"
         grid={{ vertical: true }}
+        dataset={userDetailsArray}
         series={[
           {
-            data: summaryStatsData,
+            dataKey: "value",
+            label: "Owes You",
             color: "#57abd8",
             valueFormatter,
           },
         ]}
         yAxis={[
           {
-            data: summaryStatsLabel,
+            dataKey: "label",
             scaleType: "band",
             categoryGapRatio: 0.3,
           },
@@ -140,7 +133,7 @@ export default function SummaryChart() {
             fill: "white",
           },
         }}
-        margin={{ left: 80, right: 70 }}
+        margin={{ left: 80, right: 50 }}
       />
     </div>
   );
