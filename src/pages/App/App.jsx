@@ -9,6 +9,7 @@ import LandingPage from "../LandingPage/LandingPage";
 import AuthPage from "../AuthPage/AuthPage";
 import Expense from "../../components/Expense/Expense";
 import Transfer from "../../components/Transfer/Transfer";
+import FriendsPage from "../../pages/FriendsPage/FriendsPage";
 
 function App() {
   const [user, setUser] = useState(getUser());
@@ -28,6 +29,7 @@ function App() {
             <Route path="/history" element={<History />} />
             <Route path="/create/expense" element={<Expense />} />
             <Route path="/create/transfer" element={<Transfer />} />
+            <Route path="/friends" element={<FriendsPage />} />
           </Routes>
         </>
       ) : (
