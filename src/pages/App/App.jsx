@@ -29,7 +29,10 @@ function App() {
             <Route path="/history" element={<History />} />
             <Route path="/create/expense" element={<Expense />} />
             <Route path="/create/transfer" element={<Transfer />} />
-            <Route path="/friends" element={<FriendsPage />} />
+            <Route
+              path="/friends"
+              element={<FriendsPage userId={user._id} />}
+            />
           </Routes>
         </>
       ) : (
