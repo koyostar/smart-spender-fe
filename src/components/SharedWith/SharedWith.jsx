@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
-import * as usersAPI from "../../utilities/users-api";
+import { getUser } from "../../utilities/users-service";
+import { getAllFriendsService } from "../../utilities/friends-service";
 import { v4 as uuidv4 } from "uuid";
 
 export default function SharedWith(props) {
   const {sharedAmt, setSharedAmt, sharedExpenses, setSharedExpenses, expenseDetails, setExpenseDetails} = props;
-  
-  const [userList, setUserList] = useState([]);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(getUser());
+  const [friendList, setFriendList] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const users = await usersAPI.findUsers();
-      setUserList(users);
+    const fetchFriends = async () => {
+      try {
+        const fetchedFriends = await getAllFriendsService(user._id);
+        setFriendList(fetchedFriends.friends);
+      } catch (error) {
+        console.error("Error fetching friends:", error);
+      }
     };
-    fetchUsers();
-  }, []);
+    fetchFriends();
+  }, [user]);
 
   const handleChangeInput = (id, event) => {
     const newFriendFields = sharedExpenses.map(i => {
@@ -26,10 +30,9 @@ export default function SharedWith(props) {
     
     setSharedExpenses(newFriendFields);
     const totalSharedAmt = sumSharedAmt(sharedExpenses);
-    // const roundedSharedAmt = (Math.round((totalSharedAmt * 100)) / 100).toFixed(2); // not working, messed with validation
-    setSharedAmt(totalSharedAmt);
+    const roundedSharedAmt = (Math.round((totalSharedAmt * 100)) / 100);
+    setSharedAmt(roundedSharedAmt);
     setExpenseDetails({...expenseDetails, sharedExpenses: newFriendFields})
-    // console.log('expense details', expenseDetails)
   }
 
   const handleAddFields = () => {
@@ -69,7 +72,7 @@ export default function SharedWith(props) {
             onChange={(event) => handleChangeInput(sharedExpense.id, event)}
           >
             <option key="00">Select a friend</option>
-            {userList.map((option) => (
+            {friendList.map((option) => (
               <option value={option._id} key={option._id}>{option.username}</option>
             ))}
           </select>
