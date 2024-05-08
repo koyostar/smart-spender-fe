@@ -6,6 +6,7 @@ import * as sharedExpenseAPI from "../../utilities/sharedexpense-api"
 import * as sharedExpenseService from "../../utilities/sharedexpense-service";
 import "./Transfer.css";
 import CreateTabs from "../Tabs/CreateTabs";
+import CreateTabs from "../Tabs/CreateTabs";
 
 export default function Transfer() {
   const [transferDetails, setTransferDetails] = useState({});
@@ -80,6 +81,8 @@ export default function Transfer() {
 
 
   return (
+    <div className="transfer-container font-bebas">
+      <CreateTabs />
     <div className="transfer-container font-bebas">
       <CreateTabs />
       <div className="form-container">
