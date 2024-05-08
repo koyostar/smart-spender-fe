@@ -10,6 +10,9 @@ import AuthPage from "../AuthPage/AuthPage";
 import Expense from "../../components/Expense/Expense";
 import Transfer from "../../components/Transfer/Transfer";
 import FriendsPage from "../../pages/FriendsPage/FriendsPage";
+import UserSummary from "../../components/UserSummary/UserSummary";
+import Debt from "../../components/UserSummary/Debt";
+import Payment from "../../components/UserSummary/Payment";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import LoginForm from "../../components/LoginForm/LoginForm";
 
@@ -23,7 +26,14 @@ function App() {
           <NavBar user={user} setUser={setUser} />
           <Routes>
             {/* Route components in here */}
-            <Route path="/home" element={<Home />} />
+            <Route
+              path="/home"
+              element={<Home user={user} setUser={setUser} />}
+            />
+            <Route path="/summary" element={<UserSummary />} />
+            <Route path="/debt" element={<Debt />} />
+            <Route path="/payment" element={<Payment />} />
+
             <Route
               path="/create"
               element={<Create user={user} setUser={setUser} />}

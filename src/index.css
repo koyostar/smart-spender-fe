@@ -3,3 +3,65 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.statistics-container {
+  background-color: #004f8f;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 30rem; /* Equivalent to max-w-md */
+  padding-left: 2rem; /* Equivalent to px-4 */
+  padding-right: 2rem; /* Equivalent to px-4 */
+  padding-top: 1rem; /* Equivalent to py-8 */
+  padding-bottom: 2rem; /* Equivalent to py-8 */
+  border-radius: 0.75rem; /* Equivalent to rounded-lg */
+
+  font-family: "Lucida Sans", "Lucida Sans Unicode", Verdana, sans-serif;
+  font-weight: bold;
+  align-items: center;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.tabs button {
+  width: 120px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: #57abd8;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: white;
+  align-items: center;
+}
+
+.tabs button:hover {
+  background-color: white;
+  color: #a76781;
+}
+
+table {
+  width: 100%;
+  text-align: left;
+  align-items: center;
+  margin-top: 20px;
+}
+th {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 20px;
+  align-items: center;
+}
+
+td {
+  font-size: 1.5rem;
+  align-items: center;
+}
+
+.user-summary h1 {
+  text-align: center;
+  font-size: 1.5rem;
+}

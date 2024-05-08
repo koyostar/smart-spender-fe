@@ -1,10 +1,7 @@
 import React from "react";
+import UserSummary from "../../components/UserSummary/UserSummary.jsx";
+import SummaryTabs from "../../components/Tabs/SummaryTabs.jsx";
 
 export default function Home() {
-  return (
-    <div>
-      <h3>Home</h3>
-      <div className="statistics"></div>
-    </div>
-  );
+  return <UserSummary />;
 }

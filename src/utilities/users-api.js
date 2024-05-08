@@ -24,3 +24,7 @@ export function checkTokenAPI() {
 export function findUsers() {
   return sendRequest(`${BASE_URL}/find`);
 }
+
+export function findUsersByID(id) {
+  return sendRequest(`${BASE_URL}/find/id/${id}`);
+}
