@@ -47,6 +47,8 @@ export default function SharedWith({ sharedAmt, setSharedAmt }) {
     fields.forEach(field => {
       if (!field.amount) {
         field.amount = 0;
+      } else {
+        field.amount = field.amount.toString().replace(/^0+/, "");
       }
       const amountNumber = parseFloat(field.amount)
       amountsArr.push(amountNumber);
