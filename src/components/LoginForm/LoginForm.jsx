@@ -32,17 +32,16 @@ function LoginForm({ setUser }) {
       console.error(err);
     }
   };
-
   return (
-    <div className="container bg-[#004F8F] mx-auto max-w-md px-4 py-8 rounded-lg">
-      <header className="text-white font-bold text-2xl text-center">
-        Sign In
-      </header>
-      <form className="p-8" onSubmit={handleSubmit}>
+    <div className="container bg-neutral-400 mx-auto max-w-md p-4">
+      <form className="p-2" onSubmit={handleSubmit}>
+        <header className="text-white font-inter font-light text-2xl mb-4">
+          Sign In
+        </header>
         <div className="mb-6">
           <label
             htmlFor="username"
-            className="block mb-2 text-sm font-medium text-white"
+            className="block mb-2 text-sm font-inter font-normal text-gray-600"
           >
             Username
           </label>
@@ -50,16 +49,17 @@ function LoginForm({ setUser }) {
             type="username"
             id="username"
             name="username"
+            autoComplete="off"
             value={credentials.username}
             onChange={handleChange}
-            className="shadow-sm border border-[#57ABD8] text-black text-sm rounded-lg focus:ring-[#57ABD8] focus:border-[#57ABD8] block w-full p-2.5"
+            className="bg-neutral-300 text-gray-900 text-sm focus:outline-none block w-full p-2.5 cursor-text font-inter font-extralight border-none"
             required
           />
         </div>
         <div className="mb-6">
           <label
             htmlFor="password"
-            className="block mb-2 text-sm font-medium text-white"
+            className="block mb-2 text-sm font-inter font-normal text-gray-600"
           >
             Password
           </label>
@@ -67,26 +67,26 @@ function LoginForm({ setUser }) {
             type="password"
             id="password"
             name="password"
+            autoComplete="off"
             value={credentials.password}
             onChange={handleChange}
-            className="shadow-sm border border-[#57ABD8] text-black text-sm rounded-lg focus:ring-[#57ABD8] focus:border-[#57ABD8] block w-full p-2.5"
+            className="bg-neutral-300 text-gray-900 text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text font-inter font-extralight border-none"
             required
           />
         </div>
         <button
           type="submit"
-          className="text-white bg-[#57ABD8] hover:bg-[#5D95D3] focus:ring-2 focus:outline-none focus:ring-[#57ABD8] font-medium text-lg px-3 py-2.5 text-center w-full rounded-lg"
+          className="text-white bg-[#004F8F] hover:bg-[#57ABD8] focus:ring-2 focus:outline-none focus:ring-gray-400 font-bebas font-normal text-3xl px-3 py-2.5 text-center w-full"
         >
           Sign In
         </button>
-        <footer className="mt-10">
+        <footer className="mt-6">
           New to Smart Spender?{" "}
-          <span className="text-white">
-            {" "}
-            <Link to="/signup" className="underline">
-              Sign up now.
-            </Link>
-          </span>
+          <Link to="/signup">
+            <span className="text-white text-md btn btn-ghost btn-sm bg-[#004F8F] hover:bg-[#57ABD8] rounded-md normal-case">
+              Sign up now!
+            </span>
+          </Link>
         </footer>
       </form>
     </div>
