@@ -13,6 +13,8 @@ import FriendsPage from "../../pages/FriendsPage/FriendsPage";
 import UserSummary from "../../components/UserSummary/UserSummary";
 import Debt from "../../components/UserSummary/Debt";
 import Payment from "../../components/UserSummary/Payment";
+import SignUpForm from "../../components/SignUpForm/SignUpForm";
+import LoginForm from "../../components/LoginForm/LoginForm";
 
 function App() {
   const [user, setUser] = useState(getUser());
@@ -39,14 +41,19 @@ function App() {
             <Route path="/history" element={<History />} />
             <Route path="/create/expense" element={<Expense />} />
             <Route path="/create/transfer" element={<Transfer />} />
-            <Route path="/friends" element={<FriendsPage />} />
+            <Route
+              path="/friends"
+              element={<FriendsPage userId={user._id} />}
+            />
           </Routes>
         </>
       ) : (
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/signup" element={<AuthPage setUser={setUser} />} />
-          <Route path="/login" element={<AuthPage setUser={setUser} />} />
+          <Route path="/" element={<AuthPage setUser={setUser} />}>
+            <Route path="signup" element={<SignUpForm />} />
+            <Route path="login" element={<LoginForm />} />
+          </Route>
         </Routes>
       )}
     </main>
