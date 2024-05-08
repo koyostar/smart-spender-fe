@@ -109,8 +109,11 @@ const DebtStats = () => {
             {userDetailsArray.map((userDetail, index) => (
               <tr key={index}>
                 <ul>
-                  <li style={{ paddingLeft: "50px", textAlign: "center" }}>
-                    {userDetail.username} owes you {userDetail.amountOwed}
+                  <li className="list-inside	list-disc	text-xl	ps-10	">
+                    {userDetail.username} owes you{" "}
+                    <span className="bg-neutral-500 text-white px-2 text-2xl">
+                      {userDetail.amountOwed}
+                    </span>
                   </li>
                 </ul>
               </tr>
