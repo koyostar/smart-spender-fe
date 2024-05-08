@@ -47,7 +47,7 @@ export default function SharedWith({ sharedAmt, setSharedAmt }) {
     fields.forEach(field => {
       if (!field.amount) {
         field.amount = 0;
-      } else {
+      } else if (field.amount > 0 && /^0+/.test(field.amount)) {
         field.amount = field.amount.toString().replace(/^0+/, "");
       }
       const amountNumber = parseFloat(field.amount)
@@ -74,6 +74,7 @@ export default function SharedWith({ sharedAmt, setSharedAmt }) {
           </select>
           &nbsp; &nbsp;
           <input
+            type="number"
             name="amount"
             placeholder="Amount"
             value={friendField.amount}
