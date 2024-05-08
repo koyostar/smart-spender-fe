@@ -47,7 +47,6 @@ export default function SharedWith({ sharedAmt, setSharedAmt }) {
     fields.forEach(field => {
       const amountNumber = parseFloat(field.amount)
       amountsArr.push(amountNumber);
-      console.log(amountsArr);
     });
 
     return amountsArr.reduce((acc, amount) => {
