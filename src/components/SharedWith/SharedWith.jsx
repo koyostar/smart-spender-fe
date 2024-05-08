@@ -29,7 +29,7 @@ export default function SharedWith(props) {
     // const roundedSharedAmt = (Math.round((totalSharedAmt * 100)) / 100).toFixed(2); // not working, messed with validation
     setSharedAmt(totalSharedAmt);
     setExpenseDetails({...expenseDetails, sharedExpenses: newFriendFields})
-    console.log('expense details', expenseDetails)
+    // console.log('expense details', expenseDetails)
   }
 
   const handleAddFields = () => {
@@ -66,12 +66,11 @@ export default function SharedWith(props) {
         <div key={sharedExpense.id}>
           <select
             name="friend"
-            value={sharedExpense.friend}
             onChange={(event) => handleChangeInput(sharedExpense.id, event)}
           >
-            <option>Select a friend</option>
+            <option key="00">Select a friend</option>
             {userList.map((option) => (
-              <option>{option.username}</option>
+              <option value={option._id} key={option._id}>{option.username}</option>
             ))}
           </select>
           &nbsp; &nbsp;

@@ -6,14 +6,18 @@ import "./Expense.css";
 import CreateTabs from "../Tabs/CreateTabs";
 
 export default function Expense() {
-  const [expenseDetails, setExpenseDetails] = useState({ category: "travel" });
-  const [error, setError] = useState("");
-  const [category, setCategory] = useState("Travel");
-  const [sharedAmt, setSharedAmt] = useState("0");
-  const [validateSharedAmt, setValidateSharedAmt] = useState(true);
+  const [expenseDetails, setExpenseDetails] = useState({category: 'travel'})
+  const [error, setError] = useState('')
+  const [category, setCategory] = useState('Travel')
+  const [sharedAmt, setSharedAmt] = useState('0');
   const [sharedExpenses, setSharedExpenses] = useState([
     { id: uuidv4(), friend: "", amount: 0 },
   ]);
+
+  // Validators
+  const [validateSharedAmt, setValidateSharedAmt] = useState(true);
+  const [validateFriendSelect, setValidateFriendSelect] = useState(true);
+  const [disableSubmitBtn, setDisableSubmitBtn] = useState(true);
 
   function handleSelect(evt) {
     setCategory(evt.target.value);
@@ -41,26 +45,39 @@ export default function Expense() {
     }
   }
 
-  const checkSharedAmount = function () {
-    if (!expenseDetails.amount) {
-      return true;
-    } else if (sharedAmt > expenseDetails.amount) {
-      return true;
-    } else {
-      return false;
+  // check if friends are selected
+  function checkFriendSelected() {
+    const friendIds = [];
+    for (let i = 0; i < sharedExpenses.length; i++) {
+      const sharedExpense = sharedExpenses[i];
+      friendIds.push(sharedExpense.friend);
     }
-  };
+    return friendIds.includes('');
+  }
+  
+  // check if shared amounts exceed amount
+  function checkSharedAmountExceeds() {
+    if (!expenseDetails.amount) return true;
+    if (sharedAmt > expenseDetails.amount) return true;
+    else return false;
+  }
+
+  // set disable state for submit button
+  function validateFields() {
+    if (!expenseDetails.amount) return true;
+    else if (checkFriendSelected()) return true;
+    else if (checkSharedAmountExceeds()) return true;
+    else return false;
+  }
 
   useEffect(() => {
-    setValidateSharedAmt(checkSharedAmount());
-  }, [sharedAmt]);
-
-  useEffect(() => {
-    setValidateSharedAmt(checkSharedAmount());
-  }, [expenseDetails]);
-
+    setValidateSharedAmt(checkSharedAmountExceeds());
+    setValidateFriendSelect(checkFriendSelected());
+    setDisableSubmitBtn(validateFields());
+  }, [expenseDetails])
+  
   return (
-    <div className="expense-container  font-bebas">
+    <div className="expense-container font-bebas">
       <CreateTabs />
       <div className="form-container">
         <form autoComplete="off" onSubmit={handleSubmit}>
@@ -107,12 +124,17 @@ export default function Expense() {
               setExpenseDetails={setExpenseDetails}
               key="0"
             />
-            {validateSharedAmt
-              ? "Shared amount total must be less than Amount!"
-              : null}
+            { validateFriendSelect
+              ? <p>You must select a friend to share expenses</p>
+              : null
+            }<br></br>
+            { validateSharedAmt
+              ? <p>Shared amount total must be less than Amount!</p>
+              : null
+            }
           </div>
           <div>
-            <button type="submit" disabled={validateSharedAmt}>
+            <button type="submit" disabled={disableSubmitBtn}>
               + Add expense
             </button>
           </div>
