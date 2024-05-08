@@ -3,6 +3,7 @@ import * as expenseAPI from "../../utilities/expense-api";
 import * as usersAPI from "../../utilities/users-api";
 import * as transferService from "../../utilities/transfer-service";
 import "./Transfer.css";
+import CreateTabs from "../Tabs/CreateTabs";
 
 export default function Transfer() {
   const [transferDetails, setTransferDetails] = useState({});
@@ -65,7 +66,8 @@ export default function Transfer() {
   }
 
   return (
-    <div>
+    <div className="transfer-container font-bebas">
+      <CreateTabs />
       <div className="form-container">
         <form autoComplete="off" onSubmit={handleSubmit}>
           <label>Date:</label>

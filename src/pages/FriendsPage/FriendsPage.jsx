@@ -60,8 +60,8 @@ const FriendsPage = ({ userId }) => {
   };
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="search-bar my-4">
+    <div className="friends-container font-bebas mx-auto px-4">
+      <div className="search-bar my-4 p-10">
         <input
           type="text"
           value={searchTerm}
