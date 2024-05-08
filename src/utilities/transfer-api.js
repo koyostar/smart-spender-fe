@@ -12,3 +12,7 @@ export function createTransfer(transferDetails) {
 export function findTransfers() {
   return sendRequest(`${BASE_URL}/find`);
 }
+
+export function updateExpense() {
+  return sendRequest(`${BASE_URL}/update/:expenseid`)
+}

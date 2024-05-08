@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import * as usersAPI from "../../utilities/users-api";
 import { v4 as uuidv4 } from "uuid";
 
-export default function SharedWith({ sharedAmt, setSharedAmt }) {
+export default function SharedWith(props) {
+  const {sharedAmt, setSharedAmt, sharedExpenses, setSharedExpenses, expenseDetails, setExpenseDetails} = props;
+  
   const [userList, setUserList] = useState([]);
   const [user, setUser] = useState("");
-
-  const [friendFields, setFriendFields] = useState([
-    { id: uuidv4(), friend: "", amount: 0 },
-  ]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -19,26 +17,29 @@ export default function SharedWith({ sharedAmt, setSharedAmt }) {
   }, []);
 
   const handleChangeInput = (id, event) => {
-    const newFriendFields = friendFields.map(i => {
+    const newFriendFields = sharedExpenses.map(i => {
       if(id === i.id) {
         i[event.target.name] = event.target.value
       }
       return i;
     })
     
-    setFriendFields(newFriendFields);
-    const totalSharedAmt = sumSharedAmt(friendFields)
+    setSharedExpenses(newFriendFields);
+    const totalSharedAmt = sumSharedAmt(sharedExpenses);
+    // const roundedSharedAmt = (Math.round((totalSharedAmt * 100)) / 100).toFixed(2); // not working, messed with validation
     setSharedAmt(totalSharedAmt);
+    setExpenseDetails({...expenseDetails, sharedExpenses: newFriendFields})
+    // console.log('expense details', expenseDetails)
   }
 
   const handleAddFields = () => {
-    setFriendFields([...friendFields, { id: uuidv4(),  friend: '', amount: 0 }])
+    setSharedExpenses([...sharedExpenses, { id: uuidv4(),  friend: '', amount: 0 }])
   }
 
   const handleRemoveFields = id => {
-    const values  = [...friendFields];
+    const values  = [...sharedExpenses];
     values.splice(values.findIndex(value => value.id === id), 1);
-    setFriendFields(values);
+    setSharedExpenses(values);
   }
 
   function sumSharedAmt(fields) {
@@ -50,7 +51,7 @@ export default function SharedWith({ sharedAmt, setSharedAmt }) {
       } else if (field.amount > 0 && /^0+/.test(field.amount)) {
         field.amount = field.amount.toString().replace(/^0+/, "");
       }
-      const amountNumber = parseFloat(field.amount)
+      const amountNumber = parseFloat(field.amount);
       amountsArr.push(amountNumber);
     });
 
@@ -61,15 +62,15 @@ export default function SharedWith({ sharedAmt, setSharedAmt }) {
 
   return (
     <>
-      {friendFields.map((friendField) => (
-        <div key={friendField.id}>
+      {sharedExpenses.map((sharedExpense) => (
+        <div key={sharedExpense.id}>
           <select
             name="friend"
-            value={friendField.friend}
-            onChange={(event) => handleChangeInput(friendField.id, event)}
+            onChange={(event) => handleChangeInput(sharedExpense.id, event)}
           >
+            <option key="00">Select a friend</option>
             {userList.map((option) => (
-              <option>{option.username}</option>
+              <option value={option._id} key={option._id}>{option.username}</option>
             ))}
           </select>
           &nbsp; &nbsp;
@@ -77,13 +78,13 @@ export default function SharedWith({ sharedAmt, setSharedAmt }) {
             type="number"
             name="amount"
             placeholder="Amount"
-            value={friendField.amount}
-            onChange={(event) => handleChangeInput(friendField.id, event)}
+            value={sharedExpense.amount}
+            onChange={(event) => handleChangeInput(sharedExpense.id, event)}
           />
           &nbsp; &nbsp;
           <button onClick={handleAddFields}>+</button>
           &nbsp; &nbsp;
-          <button disabled={friendFields.length === 1} onClick={() => handleRemoveFields(friendField.id)}>-</button>
+          <button disabled={sharedExpenses.length === 1} onClick={() => handleRemoveFields(sharedExpense.id)}>-</button>
         </div>
       ))}
       <div>Shared amount: {sharedAmt}</div>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   getAllFriendsService,
   searchFriendsService,
@@ -11,18 +11,19 @@ const FriendsPage = ({ userId }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  useEffect(() => {
-    const fetchFriends = async () => {
-      try {
-        const fetchedFriends = await getAllFriendsService(userId);
-        console.log(fetchedFriends);
-        setFriends(fetchedFriends.friends);
-      } catch (error) {
-        console.error("Error fetching friends:", error);
-      }
-    };
-    fetchFriends();
+  const fetchFriends = useCallback(async () => {
+    try {
+      const fetchedFriends = await getAllFriendsService(userId);
+      console.log(fetchedFriends);
+      setFriends(fetchedFriends.friends);
+    } catch (error) {
+      console.error("Error fetching friends:", error);
+    }
   }, [userId]);
+
+  useEffect(() => {
+    fetchFriends();
+  }, [fetchFriends]);
 
   const handleSearch = async () => {
     try {
@@ -39,9 +40,9 @@ const FriendsPage = ({ userId }) => {
 
   const handleAddFriend = async (username) => {
     try {
-      const addedFriend = await addFriendService(username);
+      await addFriendService(username);
+      fetchFriends(); // Fetch friends again to update the list
       setSearchTerm("");
-      setFriends([...friends, addedFriend]);
       setSearchResults(
         searchResults.filter((user) => user.username !== username)
       );
@@ -60,8 +61,8 @@ const FriendsPage = ({ userId }) => {
   };
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="search-bar my-4">
+    <div className="friends-container font-bebas mx-auto px-4">
+      <div className="search-bar my-4 p-10">
         <input
           type="text"
           value={searchTerm}
@@ -78,14 +79,14 @@ const FriendsPage = ({ userId }) => {
       </div>
       <h2 className="my-4 font-bold">Pending Friends to be added :</h2>
       <div className="results mt-4">
-        {searchResults.map((user) => (
+        {searchResults.map((searchResult) => (
           <div
-            key={user._id}
+            key={searchResult._id}
             className="flex justify-between items-center bg-[#57ABD8] p-2 my-2"
           >
-            <span>{user.username}</span>
+            <span>{searchResult.username}</span>
             <button
-              onClick={() => handleAddFriend(user.username)}
+              onClick={() => handleAddFriend(searchResult.username)}
               className="bg-green-500 text-white p-2 rounded"
             >
               Add Friend

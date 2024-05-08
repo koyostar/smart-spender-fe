@@ -2,9 +2,9 @@ import { getToken } from "./users-service";
 
 export default async function sendRequest(url, method = "GET", payload = null) {
   const options = { method };
-  console.log(url);
-  console.log(method);
-  console.log(payload);
+  // console.log(url);
+  // console.log(method);
+  // console.log(payload);
   if (payload) {
     options.headers = { "Content-Type": "application/json" };
     options.body = JSON.stringify(payload);

@@ -2,10 +2,15 @@ import React, { useState, useEffect } from "react";
 import * as expenseAPI from "../../utilities/expense-api";
 import * as usersAPI from "../../utilities/users-api";
 import * as transferService from "../../utilities/transfer-service";
+import * as sharedExpenseAPI from "../../utilities/sharedexpense-api"
+import * as sharedExpenseService from "../../utilities/sharedexpense-service";
 import "./Transfer.css";
+import CreateTabs from "../Tabs/CreateTabs";
 
 export default function Transfer() {
   const [transferDetails, setTransferDetails] = useState({});
+  const [expenseId, setExpenseId] = useState()
+  const [userId, setUserId] = useState()
 
   const [expList, setExpList] = useState([]);
   const [expDescription, setExpDescription] = useState();
@@ -16,7 +21,7 @@ export default function Transfer() {
       setExpList(expenses);
       setTransferDetails({
         ...transferDetails,
-        expense: expenses[0]._id,
+        expenseId: expenses[0].expenseId,
       });
     };
     fetchExpenses();
@@ -29,6 +34,10 @@ export default function Transfer() {
     const fetchUsers = async () => {
       const users = await usersAPI.findUsers();
       setUserList(users);
+      setTransferDetails({
+        ...transferDetails,
+        to: users[0]._id,
+      });
     };
     fetchUsers();
   }, []);
@@ -41,31 +50,38 @@ export default function Transfer() {
   }
 
   function handleSelect(evt) {
-    if (evt.target.name === "expense") {
+    if (evt.target.name === "expenseId") {
       setExpDescription(evt.target.value);
       const selectedIndex = evt.target.options.selectedIndex;
+      setExpenseId(expList[selectedIndex].expenseId)
       setTransferDetails({
         ...transferDetails,
-        expense: expList[selectedIndex]._id,
+        expenseId: expList[selectedIndex].expenseId,
       });
     } else {
       setUser(evt.target.value);
       const selectedIndex = evt.target.options.selectedIndex;
+      setUserId(userList[selectedIndex]._id)
       setTransferDetails({
         ...transferDetails,
         to: userList[selectedIndex]._id,
       });
     }
   }
+  
 
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
     transferService.createTransfer(transferDetails);
-    // console.log(transferDetails);
+    console.log(transferDetails)
+    sharedExpenseService.updateSharedExpense(transferDetails.expenseId, transferDetails.to, transferDetails.amount)
   }
 
+
+
   return (
-    <div>
+    <div className="transfer-container font-bebas">
+      <CreateTabs />
       <div className="form-container">
         <form autoComplete="off" onSubmit={handleSubmit}>
           <label>Date:</label>
@@ -85,7 +101,7 @@ export default function Transfer() {
           ></input>
           <br />
           <label>Expense</label>
-          <select name="expense" value={expDescription} onChange={handleSelect}>
+          <select name="expenseId" value={expDescription} onChange={handleSelect}>
             {expList.map((expense) => (
               <option key={expense._id}>{expense.description}</option>
             ))}
@@ -100,6 +116,7 @@ export default function Transfer() {
           <br />
           <label>Description</label>
           <input type="text" name="description" onChange={handleChange}></input>
+          <br />
           <div>
             <button type="submit">+ Transfer</button>
           </div>
