@@ -8,3 +8,7 @@ const BASE_URL = `${apiUrl}/api/expenses`;
 export function createExpense(expenseDetails) {
   return sendRequest(`${BASE_URL}/create`, "POST", expenseDetails);
 }
+
+export function findExpenses() {
+  return sendRequest(`${BASE_URL}/find`);
+}
