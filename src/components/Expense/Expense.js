@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import * as expenseService from "../../utilities/expense-service"
 import SharedWith from '../SharedWith/SharedWith'
+import { v4 as uuidv4 } from "uuid";
 import "./Expense.css"
 
 export default function Expense() {
@@ -9,6 +10,10 @@ export default function Expense() {
   const [error, setError] = useState('')
   const [category, setCategory] = useState('Travel')
   const [sharedAmt, setSharedAmt] = useState('0');
+  const [validateSharedAmt, setValidateSharedAmt] = useState(true);
+  const [sharedExpenses, setSharedExpenses] = useState([
+    { id: uuidv4(), friend: "", amount: 0 },
+  ]);
 
   function handleSelect(evt) {
     setCategory(evt.target.value)
@@ -18,6 +23,7 @@ export default function Expense() {
   function handleChange(evt) {
     setExpenseDetails({...expenseDetails, [evt.target.name]: evt.target.value})
     setError('')
+    console.log('expense details', expenseDetails)
   }
 
   function handleSubmit(evt){
@@ -29,6 +35,25 @@ export default function Expense() {
     }
   }
 
+  const checkSharedAmount = function() {
+    if (!expenseDetails.amount) {
+      return true;
+    } else if (sharedAmt > expenseDetails.amount) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  useEffect(() => {
+    setValidateSharedAmt(checkSharedAmount());
+  }, [sharedAmt])
+
+  useEffect(() => {
+    setValidateSharedAmt(checkSharedAmount());
+  }, [expenseDetails])
+  
+
   return (
     <div className='expense'>
         <div className='form-container'>
@@ -38,23 +63,32 @@ export default function Expense() {
                 <br />
                 <label>Category</label>
                 <select name='category' value={category} onChange={handleSelect} required>
-                  <option value='Travel'>Travel</option>
-                  <option value='Food'>Food</option>
-                  <option value='Accommodation'>Accommodation</option>
+                  <option value='travel'>Travel</option>
+                  <option value='food'>Food</option>
+                  <option value='accommodation'>Accommodation</option>
                 </select>
                 <br />
                 <label>Amount</label>
-                <input type='number' name='amount' onChange={handleChange} required></input>
+                <input type='number' min='0' name='amount' onChange={handleChange} required></input>
                 <br />
                 <label>Description</label>
                 <input type='text' name='description' onChange={handleChange}></input>
                 <div>
                 <label>Shared with:</label>
                 <br />
-                <SharedWith sharedAmt={sharedAmt} setSharedAmt={setSharedAmt} />
+                <SharedWith
+                  sharedAmt={sharedAmt} setSharedAmt={setSharedAmt}
+                  sharedExpenses={sharedExpenses} setSharedExpenses={setSharedExpenses}
+                  expenseDetails={expenseDetails} setExpenseDetails={setExpenseDetails}
+                  key="0"
+                />
+                { validateSharedAmt
+                      ? 'Shared amount total must be less than Amount!'
+                      : null
+                  }
                 </div>                
                 <div>
-                <button type='submit'>+ Add expense</button>
+                <button type='submit' disabled={validateSharedAmt}>+ Add expense</button>
                 </div>
             </form>
         </div>
