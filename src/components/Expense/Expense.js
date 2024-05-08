@@ -8,6 +8,7 @@ export default function Expense() {
   const [expenseDetails, setExpenseDetails] = useState({category: 'travel'})
   const [error, setError] = useState('')
   const [category, setCategory] = useState('Travel')
+  const [sharedAmt, setSharedAmt] = useState('0');
 
   function handleSelect(evt) {
     setCategory(evt.target.value)
@@ -50,7 +51,7 @@ export default function Expense() {
                 <div>
                 <label>Shared with:</label>
                 <br />
-                <SharedWith />
+                <SharedWith sharedAmt={sharedAmt} setSharedAmt={setSharedAmt} />
                 </div>                
                 <div>
                 <button type='submit'>+ Add expense</button>
