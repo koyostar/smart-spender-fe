@@ -96,10 +96,10 @@ export default function DebtChart() {
   const valueFormatter = (value) => `$${value}`;
 
   return (
-    <div className="summary-chart">
+    <div className="summary-chart px-5">
       <BarChart
         width={450}
-        height={300}
+        height={250}
         layout="horizontal"
         grid={{ vertical: true }}
         dataset={userDetailsArray}
@@ -133,7 +133,8 @@ export default function DebtChart() {
             fill: "white",
           },
         }}
-        margin={{ left: 80, right: 50 }}
+        slotProps={{ legend: { hidden: true } }}
+        margin={{ left: 80, right: 50, top: 0 }}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
+import { PieChart } from "@mui/x-charts/PieChart";
 import { useEffect, useState } from "react";
 import { fetchStatsService } from "../../utilities/statistics-service";
 import { findUsersByID } from "../../utilities/users-api";
@@ -103,7 +103,7 @@ export default function PaymentChart() {
   };
 
   return (
-    <div className="summary-chart">
+    <div className="summary-chart mb-10 px-5">
       <PieChart
         series={[
           {
@@ -112,8 +112,9 @@ export default function PaymentChart() {
             faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
           },
         ]}
+        slotProps={{ legend: { hidden: true } }}
         {...size}
-        margin={{ right: 200 }}
+        margin={{ left: 50 }}
       />
     </div>
   );

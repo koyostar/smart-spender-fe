@@ -105,10 +105,10 @@ export default function SummaryChart() {
   const valueFormatter = (value) => `$${value}`;
 
   return (
-    <div className="summary-chart">
+    <div className="summary-chart px-5">
       <BarChart
         width={450}
-        height={300}
+        height={250}
         layout="horizontal"
         grid={{ vertical: true }}
         series={[
@@ -140,7 +140,7 @@ export default function SummaryChart() {
             fill: "white",
           },
         }}
-        margin={{ left: 80, right: 70 }}
+        margin={{ left: 80, right: 70, top: 0 }}
       />
     </div>
   );

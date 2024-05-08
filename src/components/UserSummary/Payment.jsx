@@ -4,7 +4,7 @@ import SummaryTabs from "../Tabs/SummaryTabs";
 
 export default function Payment() {
   return (
-    <div className="statistics-container">
+    <div className="statistics-container font-bebas">
       <SummaryTabs />
       <PaymentChart />
       <PaymentStats />

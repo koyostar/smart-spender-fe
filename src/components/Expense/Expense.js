@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react'
-import * as expenseService from "../../utilities/expense-service"
-import SharedWith from '../SharedWith/SharedWith'
+import React, { useState, useEffect } from "react";
+import * as expenseService from "../../utilities/expense-service";
+import SharedWith from "../SharedWith/SharedWith";
 import { v4 as uuidv4 } from "uuid";
-import "./Expense.css"
+import "./Expense.css";
+import CreateTabs from "../Tabs/CreateTabs";
 
 export default function Expense() {
-
   const [expenseDetails, setExpenseDetails] = useState({category: 'travel'})
   const [error, setError] = useState('')
   const [category, setCategory] = useState('Travel')
@@ -20,22 +20,28 @@ export default function Expense() {
   const [disableSubmitBtn, setDisableSubmitBtn] = useState(true);
 
   function handleSelect(evt) {
-    setCategory(evt.target.value)
-    setExpenseDetails({...expenseDetails, [evt.target.name]: evt.target.value})
+    setCategory(evt.target.value);
+    setExpenseDetails({
+      ...expenseDetails,
+      [evt.target.name]: evt.target.value,
+    });
   }
 
   function handleChange(evt) {
-    setExpenseDetails({...expenseDetails, [evt.target.name]: evt.target.value})
-    setError('')
-    console.log('expense details', expenseDetails)
+    setExpenseDetails({
+      ...expenseDetails,
+      [evt.target.name]: evt.target.value,
+    });
+    setError("");
+    console.log("expense details", expenseDetails);
   }
 
-  function handleSubmit(evt){
-    evt.preventDefault()
+  function handleSubmit(evt) {
+    evt.preventDefault();
     try {
-      expenseService.createExpense(expenseDetails)
+      expenseService.createExpense(expenseDetails);
     } catch (error) {
-      setError('Expense failed to log')
+      setError("Expense failed to log");
     }
   }
 
@@ -70,49 +76,70 @@ export default function Expense() {
     setDisableSubmitBtn(validateFields());
   }, [expenseDetails])
   
-
   return (
-    <div className='expense'>
-        <div className='form-container'>
-            <form autoComplete='off' onSubmit={handleSubmit}>
-                <label>Date:</label>
-                <input type='date' name='incurredDate' onChange={handleChange} required></input>
-                <br />
-                <label>Category</label>
-                <select name='category' value={category} onChange={handleSelect} required>
-                  <option value='travel'>Travel</option>
-                  <option value='food'>Food</option>
-                  <option value='accommodation'>Accommodation</option>
-                </select>
-                <br />
-                <label>Amount</label>
-                <input type='number' min='0' name='amount' onChange={handleChange} required></input>
-                <br />
-                <label>Description</label>
-                <input type='text' name='description' onChange={handleChange}></input>
-                <div>
-                <label>Shared with:</label>
-                <br />
-                <SharedWith
-                  sharedAmt={sharedAmt} setSharedAmt={setSharedAmt}
-                  sharedExpenses={sharedExpenses} setSharedExpenses={setSharedExpenses}
-                  expenseDetails={expenseDetails} setExpenseDetails={setExpenseDetails}
-                  key="0"
-                />
-                { validateFriendSelect
-                  ? <p>You must select a friend to share expenses</p>
-                  : null
-                }<br></br>
-                { validateSharedAmt
-                  ? <p>Shared amount total must be less than Amount!</p>
-                  : null
-                }
-                </div>                
-                <div>
-                <button type='submit' disabled={disableSubmitBtn}>+ Add expense</button>
-                </div>
-            </form>
-        </div>
+    <div className="expense-container font-bebas">
+      <CreateTabs />
+      <div className="form-container">
+        <form autoComplete="off" onSubmit={handleSubmit}>
+          <label>Date:</label>
+          <input
+            type="date"
+            name="incurredDate"
+            onChange={handleChange}
+            required
+          ></input>
+          <br />
+          <label>Category</label>
+          <select
+            name="category"
+            value={category}
+            onChange={handleSelect}
+            required
+          >
+            <option value="travel">Travel</option>
+            <option value="food">Food</option>
+            <option value="accommodation">Accommodation</option>
+          </select>
+          <br />
+          <label>Amount</label>
+          <input
+            type="number"
+            min="0"
+            name="amount"
+            onChange={handleChange}
+            required
+          ></input>
+          <br />
+          <label>Description</label>
+          <input type="text" name="description" onChange={handleChange}></input>
+          <div>
+            <label>Shared with:</label>
+            <br />
+            <SharedWith
+              sharedAmt={sharedAmt}
+              setSharedAmt={setSharedAmt}
+              sharedExpenses={sharedExpenses}
+              setSharedExpenses={setSharedExpenses}
+              expenseDetails={expenseDetails}
+              setExpenseDetails={setExpenseDetails}
+              key="0"
+            />
+            { validateFriendSelect
+              ? <p>You must select a friend to share expenses</p>
+              : null
+            }<br></br>
+            { validateSharedAmt
+              ? <p>Shared amount total must be less than Amount!</p>
+              : null
+            }
+          </div>
+          <div>
+            <button type="submit" disabled={disableSubmitBtn}>
+              + Add expense
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-  )
+  );
 }
