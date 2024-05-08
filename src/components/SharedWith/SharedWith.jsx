@@ -45,6 +45,9 @@ export default function SharedWith({ sharedAmt, setSharedAmt }) {
     const amountsArr = [];
 
     fields.forEach(field => {
+      if (!field.amount) {
+        field.amount = 0;
+      }
       const amountNumber = parseFloat(field.amount)
       amountsArr.push(amountNumber);
     });
