@@ -47,7 +47,7 @@ export default function Expense() {
                 <input type='number' name='amount' onChange={handleChange} required></input>
                 <br />
                 <label>Description</label>
-                <input type='text' name='description' onChange={handleChange}></input>
+                <input type='text' name='description' onChange={handleChange} required></input>
                 <div>
                 <label>Shared with:</label>
                 <br />
