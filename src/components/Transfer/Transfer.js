@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from "react";
 import * as expenseAPI from "../../utilities/expense-api";
 import * as usersAPI from "../../utilities/users-api";
+import * as transferService from "../../utilities/transfer-service";
+import "./Transfer.css";
 
 export default function Transfer() {
+  const [transferDetails, setTransferDetails] = useState({});
+
   const [expList, setExpList] = useState([]);
-  const [expDetails, setExpDetails] = useState(0);
+  const [expDescription, setExpDescription] = useState();
 
   useEffect(() => {
     const fetchExpenses = async () => {
       const expenses = await expenseAPI.findExpenses();
       setExpList(expenses);
+      setTransferDetails({
+        ...transferDetails,
+        expense: expenses[0]._id,
+      });
     };
     fetchExpenses();
   }, []);
-
 
   const [userList, setUserList] = useState([]);
   const [user, setUser] = useState("");
@@ -26,7 +33,36 @@ export default function Transfer() {
     fetchUsers();
   }, []);
 
-  function handleSubmit() {}
+  function handleChange(evt) {
+    setTransferDetails({
+      ...transferDetails,
+      [evt.target.name]: evt.target.value,
+    });
+  }
+
+  function handleSelect(evt) {
+    if (evt.target.name === "expense") {
+      setExpDescription(evt.target.value);
+      const selectedIndex = evt.target.options.selectedIndex;
+      setTransferDetails({
+        ...transferDetails,
+        expense: expList[selectedIndex]._id,
+      });
+    } else {
+      setUser(evt.target.value);
+      const selectedIndex = evt.target.options.selectedIndex;
+      setTransferDetails({
+        ...transferDetails,
+        to: userList[selectedIndex]._id,
+      });
+    }
+  }
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    transferService.createTransfer(transferDetails);
+    // console.log(transferDetails);
+  }
 
   return (
     <div>
@@ -35,7 +71,7 @@ export default function Transfer() {
           <label>Date:</label>
           <input
             type="date"
-            name="Date"
+            name="transferDate"
             onChange={handleChange}
             required
           ></input>
@@ -43,35 +79,27 @@ export default function Transfer() {
           <label>Amount</label>
           <input
             type="number"
-            name="Amount"
+            name="amount"
             onChange={handleChange}
             required
           ></input>
           <br />
           <label>Expense</label>
-          <select
-            name="expense"
-            value={expDetails}
-            onChange={(e) => setExpDetails(e.target.value)}
-          >
+          <select name="expense" value={expDescription} onChange={handleSelect}>
             {expList.map((expense) => (
-              <option>{expense.description}</option>
+              <option key={expense._id}>{expense.description}</option>
             ))}
           </select>
           <br />
           <label>To</label>
-          <select
-            name="friend"
-            value={user}
-            onChange={(e) => setUser(e.target.value)}
-          >
+          <select name="to" value={user} onChange={handleSelect}>
             {userList.map((user) => (
-              <option>{user.username}</option>
+              <option key={user._id}>{user.username}</option>
             ))}
           </select>
           <br />
           <label>Description</label>
-          <input type="text" name="Description" onChange={handleChange}></input>
+          <input type="text" name="description" onChange={handleChange}></input>
           <div>
             <button type="submit">+ Transfer</button>
           </div>
