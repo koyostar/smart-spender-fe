@@ -14,5 +14,9 @@ export function findTransfers() {
 }
 
 export function updateExpense() {
-  return sendRequest(`${BASE_URL}/update/:expenseid`)
+  return sendRequest(`${BASE_URL}/update/:expenseid`);
+}
+
+export function findUserTransfers(userId) {
+  return sendRequest(`${BASE_URL}/find/from/${userId}`);
 }
