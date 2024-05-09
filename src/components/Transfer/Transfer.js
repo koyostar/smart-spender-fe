@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
 import * as expenseAPI from "../../utilities/expense-api";
-import * as usersAPI from "../../utilities/users-api";
 import * as transferService from "../../utilities/transfer-service";
-import * as sharedExpenseAPI from "../../utilities/sharedexpense-api"
+import * as sharedExpenseAPI from "../../utilities/sharedexpense-api";
 import * as sharedExpenseService from "../../utilities/sharedexpense-service";
 import "./Transfer.css";
 import CreateTabs from "../Tabs/CreateTabs";
+import { getUser } from "../../utilities/users-service";
 
 export default function Transfer() {
   const [transferDetails, setTransferDetails] = useState({});
-  const [expenseId, setExpenseId] = useState()
-  const [userId, setUserId] = useState()
-
-  const [expList, setExpList] = useState([]);
   const [expDescription, setExpDescription] = useState();
+  const [expList, setExpList] = useState([]);
 
   useEffect(() => {
     const fetchExpenses = async () => {
@@ -27,21 +24,6 @@ export default function Transfer() {
     fetchExpenses();
   }, []);
 
-  const [userList, setUserList] = useState([]);
-  const [user, setUser] = useState("");
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const users = await usersAPI.findUsers();
-      setUserList(users);
-      setTransferDetails({
-        ...transferDetails,
-        to: users[0]._id,
-      });
-    };
-    fetchUsers();
-  }, []);
-
   function handleChange(evt) {
     setTransferDetails({
       ...transferDetails,
@@ -49,35 +31,37 @@ export default function Transfer() {
     });
   }
 
-  function handleSelect(evt) {
-    if (evt.target.name === "expenseId") {
-      setExpDescription(evt.target.value);
-      const selectedIndex = evt.target.options.selectedIndex;
-      setExpenseId(expList[selectedIndex].expenseId)
-      setTransferDetails({
-        ...transferDetails,
-        expenseId: expList[selectedIndex].expenseId,
-      });
-    } else {
-      setUser(evt.target.value);
-      const selectedIndex = evt.target.options.selectedIndex;
-      setUserId(userList[selectedIndex]._id)
-      setTransferDetails({
-        ...transferDetails,
-        to: userList[selectedIndex]._id,
-      });
-    }
+  async function handleSelect(evt) {
+    setExpDescription(evt.target.value);
+    const selectedIndex = await evt.target.options.selectedIndex;
+    setTransferDetails({
+      ...transferDetails,
+      expenseId: expList[selectedIndex].expenseId,
+      to: expList[selectedIndex].createdBy,
+    });
   }
-  
+  useEffect(() => {
 
+  }, [transferDetails]);
+ 
   async function handleSubmit(evt) {
     evt.preventDefault();
+    const userid = getUser()._id
+    let expenseid = transferDetails.expenseId
     transferService.createTransfer(transferDetails);
-    console.log(transferDetails)
-    sharedExpenseService.updateSharedExpense(transferDetails.expenseId, transferDetails.to, transferDetails.amount)
+    const reqExpenses = await sharedExpenseAPI.findByExpenseId(expenseid)
+    const result = reqExpenses.find(({user}) => user === userid)
+    console.log(result)
+    let newAmountOwed = result.amountOwed - transferDetails.amount
+    let newAmountPaid = result.amountPaid + transferDetails.amount
+    const sharedExpenseDetails = ({
+      ...result,
+      amountOwed: newAmountOwed,
+      amountPaid: newAmountPaid,
+      isPaid: true,
+    })
+    sharedExpenseService.updateSharedExpense(expenseid, userid, sharedExpenseDetails)
   }
-
-
 
   return (
     <div className="transfer-container font-bebas">
@@ -101,16 +85,15 @@ export default function Transfer() {
           ></input>
           <br />
           <label>Expense</label>
-          <select name="expenseId" value={expDescription} onChange={handleSelect}>
+          <select
+            name="expenseId"
+            value={expDescription}
+            onChange={handleSelect}
+          >
             {expList.map((expense) => (
-              <option key={expense._id}>{expense.description}</option>
-            ))}
-          </select>
-          <br />
-          <label>To</label>
-          <select name="to" value={user} onChange={handleSelect}>
-            {userList.map((user) => (
-              <option key={user._id}>{user.username}</option>
+              <option key={expense._id}>
+                ExpenseID {expense.expenseId} - {expense.description}
+              </option>
             ))}
           </select>
           <br />
