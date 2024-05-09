@@ -58,6 +58,7 @@ const DebtStats = () => {
         if (stats.userExpensesOwed.usersThatOwes.length > 0) {
           const userDetailsArray = stats.userExpensesOwed.usersThatOwes.map(
             (item) => ({
+              expenseId: item.expenseId,
               username: userDetailsMap[item.user],
               amountOwed: item.amountOwed,
             })
@@ -110,9 +111,10 @@ const DebtStats = () => {
               <tr key={index}>
                 <ul>
                   <li className="list-inside	list-disc	text-xl	ps-10	">
-                    {userDetail.username} owes you{" "}
+                    Expense ID {userDetail.expenseId}: {userDetail.username}{" "}
+                    owes you{" "}
                     <span className="bg-neutral-500 text-white px-2 text-2xl">
-                      {userDetail.amountOwed}
+                      ${userDetail.amountOwed}
                     </span>
                   </li>
                 </ul>
