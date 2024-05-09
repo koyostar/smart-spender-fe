@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function LandingPage() {
   return (
     <>
-      <span className="text-[#004F8F] text-4xl font-bebas whitespace-nowrap absolute top-4 left-4">
+      <span className="text-[#004F8F] text-4xl whitespace-nowrap absolute top-4 left-4">
         $mart $pender
       </span>
       <div className="hero min-h-screen">

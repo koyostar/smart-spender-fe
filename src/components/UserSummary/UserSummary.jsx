@@ -4,7 +4,7 @@ import SummaryTabs from "../Tabs/SummaryTabs";
 
 export default function UserSummary() {
   return (
-    <div className="statistics-container font-bebas">
+    <div className="app-container">
       <SummaryTabs />
       <SummaryChart />
       <UserSummaryStats />

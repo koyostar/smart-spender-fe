@@ -11,10 +11,10 @@ export default function SummaryTabs() {
       <div className="tabs">
         <Link to="/summary">
           <button
-            className={`w-40 rounded-t-lg hover:bg-white hover:text-neutral-500 hover:text-lg ${
-              location.pathname === "/summary"
-                ? "text-white bg-[#004F8F]"
-                : "bg-neutral-500 hover:text-white"
+            className={`summary-tab-btn ${
+              location.pathname === "/summary" || "/home"
+                ? "text-white bg-pricol"
+                : "bg-acccol hover:text-acccol hover:bg-white"
             }`}
           >
             Summary
@@ -22,10 +22,10 @@ export default function SummaryTabs() {
         </Link>
         <Link to="/debt">
           <button
-            className={`w-40 rounded-t-lg hover:bg-white hover:text-neutral-500 hover:text-lg ${
+            className={`summary-tab-btn ${
               location.pathname === "/debt"
-                ? "text-white bg-[#004F8F]"
-                : "bg-neutral-500 hover:text-white"
+                ? "text-white bg-pricol"
+                : "bg-acccol hover:text-acccol hover:bg-white"
             }`}
           >
             Debt
@@ -33,10 +33,10 @@ export default function SummaryTabs() {
         </Link>
         <Link to="/loan">
           <button
-            className={`w-40 rounded-t-lg hover:bg-white hover:text-neutral-500 hover:text-lg ${
+            className={`summary-tab-btn ${
               location.pathname === "/loan"
-                ? "text-white bg-[#004F8F]"
-                : "bg-neutral-500 hover:text-white"
+                ? "text-white bg-pricol"
+                : "bg-acccol hover:text-acccol hover:bg-white"
             }`}
           >
             Loan

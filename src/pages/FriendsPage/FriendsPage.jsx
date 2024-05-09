@@ -61,8 +61,8 @@ const FriendsPage = ({ userId }) => {
   };
 
   return (
-    <div className="friends-container font-bebas mx-auto px-4">
-      <div className="search-bar my-4 p-10">
+    <div className="app-container p-4">
+      <div className="search-bar flex flex-row my-4">
         <input
           type="text"
           value={searchTerm}
@@ -72,7 +72,7 @@ const FriendsPage = ({ userId }) => {
         />
         <button
           onClick={handleSearch}
-          className="bg-blue-500 text-white p-2 mt-3 rounded"
+          className="bg-acccol text-white font-bold px-4 ml-3 rounded"
         >
           Search
         </button>

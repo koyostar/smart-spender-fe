@@ -35,13 +35,11 @@ function LoginForm({ setUser }) {
   return (
     <div className="container bg-neutral-400 mx-auto max-w-md p-4">
       <form className="p-2" onSubmit={handleSubmit}>
-        <header className="text-white font-inter font-light text-2xl mb-4">
-          Sign In
-        </header>
+        <header className="text-white font-light text-2xl mb-4">Sign In</header>
         <div className="mb-6">
           <label
             htmlFor="username"
-            className="block mb-2 text-sm font-inter font-normal text-gray-600"
+            className="block mb-2 text-sm font-normal text-gray-600"
           >
             Username
           </label>
@@ -52,14 +50,14 @@ function LoginForm({ setUser }) {
             autoComplete="off"
             value={credentials.username}
             onChange={handleChange}
-            className="bg-neutral-300 text-gray-900 text-sm focus:outline-none block w-full p-2.5 cursor-text font-inter font-extralight border-none"
+            className="bg-neutral-300 text-gray-900 text-sm focus:outline-none block w-full p-2.5 cursor-text font-extralight border-none"
             required
           />
         </div>
         <div className="mb-6">
           <label
             htmlFor="password"
-            className="block mb-2 text-sm font-inter font-normal text-gray-600"
+            className="block mb-2 text-sm font-normal text-gray-600"
           >
             Password
           </label>
@@ -70,13 +68,13 @@ function LoginForm({ setUser }) {
             autoComplete="off"
             value={credentials.password}
             onChange={handleChange}
-            className="bg-neutral-300 text-gray-900 text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text font-inter font-extralight border-none"
+            className="bg-neutral-300 text-gray-900 text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text font-extralight border-none"
             required
           />
         </div>
         <button
           type="submit"
-          className="text-white bg-[#004F8F] hover:bg-[#57ABD8] focus:ring-2 focus:outline-none focus:ring-gray-400 font-bebas font-normal text-3xl px-3 py-2.5 text-center w-full"
+          className="text-white bg-[#004F8F] hover:bg-[#57ABD8] focus:ring-2 focus:outline-none focus:ring-gray-400 font-normal text-3xl px-3 py-2.5 text-center w-full"
         >
           Sign In
         </button>

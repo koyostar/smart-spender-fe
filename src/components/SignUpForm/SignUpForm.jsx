@@ -122,7 +122,7 @@ function SignUpForm({ setUser }) {
         </div>
         <button
           type="submit"
-          className="text-white bg-[#004F8F] hover:bg-[#57ABD8] focus:ring-2 focus:outline-none focus:ring-gray-400 font-bebas font-normal text-3xl px-3 py-2.5 text-center w-full"
+          className="text-white bg-[#004F8F] hover:bg-[#57ABD8] focus:ring-2 focus:outline-none focus:ring-gray-400 font-normal text-3xl px-3 py-2.5 text-center w-full"
         >
           SIGN UP
         </button>

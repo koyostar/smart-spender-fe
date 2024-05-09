@@ -48,8 +48,8 @@ const HistoryPage = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="history-container font-bebas">
-      <h1>Expense History</h1>
+    <div className="history-container app-container p-10">
+      <h2>Expense History</h2>
       <div className="overflow-x-auto">
         <table>
           <thead>
@@ -76,7 +76,7 @@ const HistoryPage = () => {
           </tbody>
         </table>
       </div>
-      <h1>Transfer History</h1>
+      <h2>Transfer History</h2>
       <div className="overflow-x-auto">
         <table>
           <thead>

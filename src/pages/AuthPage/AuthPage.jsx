@@ -8,7 +8,7 @@ function AuthPage({ setUser }) {
 
   return (
     <>
-      <span className="font-bebas whitespace-nowrap absolute top-4 left-4">
+      <span className="whitespace-nowrap absolute top-4 left-4">
         <Link to="/">
           <span className="text-[#004F8F] text-4xl font-bold">
             $mart $pender
