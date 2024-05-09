@@ -12,3 +12,7 @@ export function createExpense(expenseDetails) {
 export function findExpenses() {
   return sendRequest(`${BASE_URL}/find`);
 }
+
+export function findUserExpenses(userId) {
+  return sendRequest(`${BASE_URL}/find/user/${userId}`);
+}
