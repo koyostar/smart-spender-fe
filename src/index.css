@@ -12,16 +12,21 @@
 @tailwind components;
 @tailwind utilities;
 
-.app-container {
-  @apply bg-pricol max-w-xl h-fit rounded-xl pb-10 text-white mx-auto font-bold;
+.tabs-container {
+  @apply max-w-xl mx-auto text-darksec font-bold;
 }
 
-.form-container {
-  @apply p-5 font-bold;
+.form-container,
+.statistics {
+  @apply bg-lightsec h-fit rounded-b-xl pb-10 p-5 mx-auto;
+}
+
+.tabless-container {
+  @apply max-w-xl h-fit bg-lightsec text-darksec font-bold rounded-xl mx-auto py-4 px-10;
 }
 
 .tabs {
-  @apply flex flex-row justify-between bg-seccol;
+  @apply flex flex-row justify-between bg-transparent;
 }
 
 .summary-tab-btn {
@@ -33,7 +38,7 @@
 }
 
 .submit-btn {
-  @apply bg-seccol text-pricol text-opacity-50 active:bg-acccol active:text-white font-bold px-4 ml-3 rounded;
+  @apply bg-lightpri text-lightsec mt-3 p-2 active:bg-darkpri active:text-lightpri font-bold px-4 ml-3 rounded;
 }
 
 .stats-table {
@@ -46,12 +51,12 @@ table {
 
 .stats-table th {
   @apply text-lg text-left py-3;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #dbdfea;
 }
 
 .stats-table td {
   @apply text-lg text-right py-3;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #dbdfea;
 }
 
 .history-table {
@@ -59,21 +64,20 @@ table {
 }
 
 .history-table th {
-  @apply bg-seccol text-pricol text-opacity-75 text-center p-2;
-  border-bottom: 1px solid white;
+  @apply bg-lightpri text-darksec text-center p-2;
 }
 
 .history-table td {
-  @apply text-base text-center py-3;
-  border-bottom: 1px solid white;
+  @apply text-darkpri text-base text-center py-3;
+  border-bottom: 1px solid #dbdfea;
 }
 
 h2 {
-  @apply text-white text-2xl text-center m-3;
+  @apply text-darkpri text-2xl text-center font-extrabold mb-5;
 }
 
 input,
 select,
 option {
-  @apply text-pricol text-opacity-50 font-normal;
+  @apply text-darksec text-opacity-50 font-normal;
 }

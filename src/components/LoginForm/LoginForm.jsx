@@ -33,14 +33,11 @@ function LoginForm({ setUser }) {
     }
   };
   return (
-    <div className="container bg-neutral-400 mx-auto max-w-md p-4">
+    <div className="container font-bold bg-lightsec mx-auto max-w-md p-4 rounded-2xl">
       <form className="p-2" onSubmit={handleSubmit}>
-        <header className="text-white font-light text-2xl mb-4">Sign In</header>
+        <header className="text-darkpri text-2xl mb-4">SIGN IN</header>
         <div className="mb-6">
-          <label
-            htmlFor="username"
-            className="block mb-2 text-sm font-normal text-gray-600"
-          >
+          <label htmlFor="username" className="block mb-2 text-lg text-darkpri">
             Username
           </label>
           <input
@@ -50,15 +47,12 @@ function LoginForm({ setUser }) {
             autoComplete="off"
             value={credentials.username}
             onChange={handleChange}
-            className="bg-neutral-300 text-gray-900 text-sm focus:outline-none block w-full p-2.5 cursor-text font-extralight border-none"
+            className="bg-lightpri text-gray-900 text-sm focus:outline-none block w-full p-2.5 cursor-text font-extralight border-none"
             required
           />
         </div>
         <div className="mb-6">
-          <label
-            htmlFor="password"
-            className="block mb-2 text-sm font-normal text-gray-600"
-          >
+          <label htmlFor="password" className="block mb-2 text-lg text-darkpri">
             Password
           </label>
           <input
@@ -68,20 +62,21 @@ function LoginForm({ setUser }) {
             autoComplete="off"
             value={credentials.password}
             onChange={handleChange}
-            className="bg-neutral-300 text-gray-900 text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text font-extralight border-none"
+            className="bg-lightpri text-gray-900 text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text font-extralight border-none"
             required
           />
         </div>
         <button
           type="submit"
-          className="text-white bg-[#004F8F] hover:bg-[#57ABD8] focus:ring-2 focus:outline-none focus:ring-gray-400 font-normal text-3xl px-3 py-2.5 text-center w-full"
+          className="text-lightpri bg-darkpri hover:bg-darksec focus:ring-2 focus:outline-none focus:ring-gray-400 text-3xl px-3 py-2.5 text-center w-full rounded-2xl"
         >
-          Sign In
+          SIGN IN
         </button>
-        <footer className="mt-6">
-          New to Smart Spender?{" "}
+        <footer className="mt-6 text-center">
+          New to Smart Spender?
+          <br />
           <Link to="/signup">
-            <span className="text-white text-md btn btn-ghost btn-sm bg-[#004F8F] hover:bg-[#57ABD8] rounded-md normal-case">
+            <span className="text-lightpri text-md btn btn-ghost btn-sm bg-darkpri hover:bg-darksec rounded-md normal-case">
               Sign up now!
             </span>
           </Link>

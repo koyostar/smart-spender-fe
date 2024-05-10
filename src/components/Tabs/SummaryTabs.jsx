@@ -3,7 +3,6 @@ import { getUser } from "../../utilities/users-service";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function SummaryTabs() {
-  const user = getUser().username;
   const location = useLocation();
 
   return (
@@ -13,8 +12,8 @@ export default function SummaryTabs() {
           <button
             className={`summary-tab-btn ${
               location.pathname === "/summary"
-                ? "text-white bg-pricol"
-                : "bg-acccol hover:text-acccol hover:bg-white"
+                ? "text-darkpri bg-lightsec"
+                : "text-lightsec bg-lightpri hover:text-darksec hover:bg-lightacc"
             }`}
           >
             Summary
@@ -24,8 +23,8 @@ export default function SummaryTabs() {
           <button
             className={`summary-tab-btn ${
               location.pathname === "/debt"
-                ? "text-white bg-pricol"
-                : "bg-acccol hover:text-acccol hover:bg-white"
+                ? "text-darkpri bg-lightsec"
+                : "text-lightsec bg-lightpri hover:text-darksec hover:bg-lightacc"
             }`}
           >
             Debt
@@ -35,15 +34,14 @@ export default function SummaryTabs() {
           <button
             className={`summary-tab-btn ${
               location.pathname === "/loan"
-                ? "text-white bg-pricol"
-                : "bg-acccol hover:text-acccol hover:bg-white"
+                ? "text-darkpri bg-lightsec"
+                : "text-lightsec bg-lightpri hover:text-darksec hover:bg-lightacc"
             }`}
           >
             Loan
           </button>
         </Link>
       </div>
-      <h2>Hi {user.toUpperCase()}</h2>
     </div>
   );
 }

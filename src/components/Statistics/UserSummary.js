@@ -94,15 +94,15 @@ const UserSummaryStats = () => {
           <tbody>
             <tr>
               <th>Loans to Return &nbsp;:</th>
-              <td>{totalUnpaidSharedExpenses}</td>
+              <td>${totalUnpaidSharedExpenses}</td>
             </tr>
             <tr>
               <th>Debts to Collect &nbsp;:</th>
-              <td>{totalAmountToCollect}</td>
+              <td>${totalAmountToCollect}</td>
             </tr>
             <tr>
               <th>Total Expenses &nbsp;:</th>
-              <td>{totalExpenses}</td>
+              <td>${totalExpenses}</td>
             </tr>
           </tbody>
         </table>

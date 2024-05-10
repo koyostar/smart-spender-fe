@@ -105,6 +105,7 @@ export default function PaymentChart() {
   return (
     <div className="summary-chart mb-10 px-5">
       <PieChart
+        colors={["#E5C3A6", "#FFEAD2", "#4B527E"]}
         series={[
           {
             data,

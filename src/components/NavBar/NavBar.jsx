@@ -14,18 +14,18 @@ export default function NavBar({ user, setUser }) {
   };
 
   return (
-    <nav className="bg-pricol mb-5">
+    <nav className=" bg-darkpri font-bebas mb-5 py-3">
       <div className=" flex flex-wrap justify-between items-center mx-auto max-w-screen p-4 place-content-around">
-        <div className="flex items-center text-3xl place-content-around ">
-          <span className="text-white font-bebas self-center text-5xl whitespace-nowrap">
+        <div className="flex items-center text-4xl place-content-around ">
+          <span className="text-lightpri self-center text-5xl whitespace-nowrap">
             <Link to="/home">$mart $pender</Link>
           </span>
           <Link
             to="/home"
             className={`mx-10 ${
               location.pathname === "/home"
-                ? "text-acccol"
-                : "text-white hover:text-white hover:underline"
+                ? "text-darkacc"
+                : "text-lightpri hover:pb-1 hover:text-lightacc"
             }`}
           >
             Home
@@ -34,8 +34,8 @@ export default function NavBar({ user, setUser }) {
             to="/create"
             className={`mr-10 ${
               location.pathname === "/create"
-                ? "text-acccol"
-                : "text-white hover:text-white hover:underline"
+                ? "text-darkacc"
+                : "text-lightpri hover:pb-1 hover:text-lightacc"
             }`}
           >
             Create
@@ -44,8 +44,8 @@ export default function NavBar({ user, setUser }) {
             to="/history"
             className={`mr-10 ${
               location.pathname === "/history"
-                ? "text-acccol"
-                : "text-white hover:text-white hover:underline"
+                ? "text-darkacc"
+                : "text-lightpri hover:pb-1 hover:text-lightacc"
             }`}
           >
             History
@@ -54,20 +54,20 @@ export default function NavBar({ user, setUser }) {
             to="/friends"
             className={`mr-10 ${
               location.pathname === "/friends"
-                ? "text-acccol"
-                : "text-white hover:text-white hover:underline"
+                ? "text-darkacc"
+                : "text-lightpri hover:pb-1 hover:text-lightacc"
             }`}
           >
             Friends
           </Link>
         </div>
-        <div className="text-seccol flex items-center text-xl">
-          <TbUserSquare className="text-4xl text-acccol mr-2" />
+        <div className="text-lightacc flex items-center text-xl">
+          <TbUserSquare className="text-4xl  mr-2" />
           <span>{user.username.toUpperCase()}</span>
           <Link
             to="/"
             onClick={handleLogOut}
-            className="text-white hover:underline ml-6"
+            className="text-lightpri hover:pb-1 hover:text-lightacc ml-6"
           >
             Logout
           </Link>

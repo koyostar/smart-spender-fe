@@ -61,18 +61,18 @@ const FriendsPage = ({ userId }) => {
   };
 
   return (
-    <div className="app-container py-4 px-10">
+    <div className="tabless-container">
       <div className="search-bar flex flex-row my-4">
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search for your friends here..."
-          className="text-black border p-2 w-full"
+          className="input bg-lightpri text-lightsec border p-2 w-full"
         />
         <button
           onClick={handleSearch}
-          className="bg-acccol text-white font-bold px-4 ml-3 rounded"
+          className="bg-darkpri text-lightacc font-bold px-4 ml-3 rounded-lg"
         >
           SEARCH
         </button>
@@ -82,14 +82,14 @@ const FriendsPage = ({ userId }) => {
         {searchResults.map((searchResult) => (
           <div
             key={searchResult._id}
-            className="flex justify-between items-center bg-seccol text-pricol text-lg rounded-lg p-2 my-2"
+            className="flex justify-between items-center bg-darksec text-lightpri text-lg rounded-lg p-2 my-2"
           >
             <span>{searchResult.username.toUpperCase()}</span>
             <button
               onClick={() => handleAddFriend(searchResult.username)}
-              className="bg-green-500 text-white text-sm p-2 rounded-lg"
+              className="bg-lightpri text-darkpri shadow- text-sm p-2 rounded-lg"
             >
-              Add Friend
+              ADD
             </button>
           </div>
         ))}
@@ -99,14 +99,14 @@ const FriendsPage = ({ userId }) => {
         {friends.map((friend) => (
           <div
             key={friend._id}
-            className="flex justify-between items-center bg-acccol text-white text-lg rounded-lg p-2 my-2"
+            className="flex justify-between items-center bg-lightpri text-darksec text-lg rounded-lg p-2 my-2"
           >
             <span>{friend.username.toUpperCase()}</span>
             <button
               onClick={() => handleRemoveFriend(friend.username)}
-              className="bg-red-500 text-white text-sm p-2 rounded-lg"
+              className="bg-darkpri text-lightpri  text-sm p-2 rounded-lg"
             >
-              Remove Friend
+              REMOVE
             </button>
           </div>
         ))}

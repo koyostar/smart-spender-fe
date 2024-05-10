@@ -97,19 +97,19 @@ const DebtStats = () => {
           <tbody>
             <tr>
               <th>Debts Paid &nbsp;:</th>
-              <td>{totalPaidSharedExpenses}</td>
+              <td>${totalPaidSharedExpenses}</td>
             </tr>
             <tr>
               <th>Debts To Collect &nbsp;:</th>
-              <td>{totalAmountToCollect}</td>
+              <td>${totalAmountToCollect}</td>
             </tr>
             {userDetailsArray.map((userDetail, index) => (
               <tr key={index}>
                 <ul>
-                  <li className="list-inside	list-disc	ps-10	">
-                    Expense ID {userDetail.expenseId}: &emsp;
-                    {userDetail.username} owes you{" "}
-                    <span className="bg-acccol text-pricol font-bold px-2 text-xl">
+                  <li className="list-inside	list-disc	ps-10	mt-2">
+                    EXPENSE ID {userDetail.expenseId}: &emsp;
+                    {userDetail.username} owes you &nbsp;
+                    <span className="bg-darkpri text-lightpri font-bold px-2 text-xl">
                       ${userDetail.amountOwed}
                     </span>
                   </li>

@@ -37,19 +37,14 @@ function SignUpForm({ setUser }) {
   };
 
   return (
-    <div className="container bg-neutral-400 mx-auto max-w-md p-4">
+    <div className="container bg-lightsec font-bold rounded-2xl mx-auto max-w-md p-4">
       <form className="p-2" onSubmit={handleSubmit} autoComplete="off">
-        <header className="text-white font-inter font-light text-2xl mb-4">
+        <header className="text-darkpri text-2xl mb-4">
           Register with{" "}
-          <span className="text-[#004F8F] text-3xl font-bold">
-            smartspender
-          </span>
+          <span className="text-darkpri text-4xl font-bebas">$mart$pender</span>
         </header>
         <div className="mb-6">
-          <label
-            htmlFor="email"
-            className="block mb-2 text-sm font-inter font-normal text-gray-600"
-          >
+          <label htmlFor="email" className="block mb-2 text-sm text-darkpri">
             Email Address
           </label>
           <input
@@ -58,17 +53,14 @@ function SignUpForm({ setUser }) {
             name="email"
             value={userData.email}
             onChange={handleChange}
-            className="bg-neutral-300 text-gray-900 text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text font-inter font-extralight border-none"
+            className="bg-lightpri text-darkpri text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text font-inter font-extralight border-none"
             placeholder="name@email.com"
             autoComplete="off"
             required
           />
         </div>
         <div className="mb-6">
-          <label
-            htmlFor="username"
-            className="block mb-2 text-sm font-inter font-normal text-gray-600"
-          >
+          <label htmlFor="username" className="block mb-2 text-sm text-darkpri">
             Username
           </label>
           <input
@@ -79,15 +71,12 @@ function SignUpForm({ setUser }) {
             onChange={handleChange}
             placeholder="Username"
             autoComplete="off"
-            className="bg-neutral-300 text-gray-900 text-sm focus:outline-none block w-full p-2.5 cursor-text font-inter font-extralight border-none"
+            className="bg-lightpri text-darkpri text-sm focus:outline-none block w-full p-2.5 cursor-text font-inter font-extralight border-none"
             required
           />
         </div>
         <div className="mb-6">
-          <label
-            htmlFor="password"
-            className="block mb-2 text-sm font-inter font-normal text-gray-600"
-          >
+          <label htmlFor="password" className="block mb-2 text-sm text-darkpri">
             Password
           </label>
           <input
@@ -97,14 +86,14 @@ function SignUpForm({ setUser }) {
             value={userData.password}
             onChange={handleChange}
             placeholder="Password"
-            className="bg-neutral-300 text-gray-900 text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text font-inter font-extralight border-none"
+            className="bg-lightpri text-darkpri text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text font-inter font-extralight border-none"
             required
           />
         </div>
         <div className="mb-6">
           <label
             htmlFor="repeat-password"
-            className="block mb-2 text-sm font-inter font-normal text-gray-600"
+            className="block mb-2 text-sm text-darkpri"
           >
             Repeat password
           </label>
@@ -116,19 +105,19 @@ function SignUpForm({ setUser }) {
             onChange={handleChange}
             autoComplete="off"
             placeholder="Repeat Password"
-            className="bg-neutral-300 text-gray-900 text-sm focus:ring-zinc-500 block focus:outline-none w-full p-2.5 cursor-text font-inter font-extralight border-none"
+            className="bg-lightpri text-darkpri text-sm focus:ring-zinc-500 block focus:outline-none w-full p-2.5 cursor-text font-inter font-extralight border-none"
             required
           />
         </div>
         <button
           type="submit"
-          className="text-white bg-[#004F8F] hover:bg-[#57ABD8] focus:ring-2 focus:outline-none focus:ring-gray-400 font-normal text-3xl px-3 py-2.5 text-center w-full"
+          className="text-white bg-darkpri hover4bg-[#57ABebas f$cus:$ing-2 focus:outline-none focus:ring-gray-400 text-3xl px-3 py-2.5 text-center w-full rounded-xl"
         >
           SIGN UP
         </button>
       </form>
       <Link to="/login">
-        <span className="text-white text-md btn btn-ghost btn-sm bg-[#004F8F] hover:bg-[#57ABD8] rounded-md absolute top-4 right-4 normal-case">
+        <span className="text-white text-md btn btn-ghost btn-sm bg-darkpri hover4bg-[#57ABebas r$unde$-md absolute top-4 right-4 normal-case">
           Sign In
         </span>
       </Link>

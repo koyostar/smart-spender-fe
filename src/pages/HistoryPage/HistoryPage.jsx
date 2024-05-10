@@ -47,7 +47,7 @@ const HistoryPage = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="app-container p-5">
+    <div className="tabless-container">
       <h2>Expense History</h2>
       <div className="history-table">
         <table>

@@ -107,7 +107,7 @@ export default function DebtChart() {
           {
             dataKey: "value",
             label: "Owes You",
-            color: "#57abd8",
+            color: "#FFEAD2",
             valueFormatter,
           },
         ]}
@@ -122,7 +122,7 @@ export default function DebtChart() {
           tickLabelStyle: {
             textAnchor: "end",
             fontSize: 12,
-            fill: "white",
+            fill: "#4B527E",
             fontWeight: "bold",
           },
         }}
@@ -130,7 +130,7 @@ export default function DebtChart() {
           tickLabelStyle: {
             textAnchor: "middle",
             fontSize: 12,
-            fill: "white",
+            fill: "#4B527E",
           },
         }}
         slotProps={{ legend: { hidden: true } }}

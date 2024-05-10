@@ -13,8 +13,8 @@ export default function CreateTabs() {
           <button
             className={`create-tab-btn ${
               location.pathname === "/create/expense"
-                ? "text-white bg-pricol"
-                : "bg-acccol hover:text-acccol hover:bg-white"
+                ? "text-darkpri bg-lightsec"
+                : "text-lightsec bg-lightpri hover:text-darksec hover:bg-lightacc"
             }`}
           >
             Expense
@@ -24,8 +24,8 @@ export default function CreateTabs() {
           <button
             className={`create-tab-btn  ${
               location.pathname === "/create/transfer"
-                ? "text-white bg-pricol"
-                : "bg-acccol hover:text-acccol hover:bg-white"
+                ? "text-darkpri bg-lightsec"
+                : "text-lightsec bg-lightpri hover:text-darksec hover:bg-lightacc"
             }`}
           >
             Transfer

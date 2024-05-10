@@ -65,7 +65,7 @@ export default function Transfer() {
   }
 
   return (
-    <div className="app-container">
+    <div className="tabs-container">
       <CreateTabs />
       <div className="form-container">
         <form autoComplete="off" onSubmit={handleSubmit}>
