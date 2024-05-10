@@ -37,7 +37,25 @@ const HistoryPage = () => {
   const fetchTransfers = async (userId) => {
     try {
       const response = await findUserTransfers(userId);
-      setTransfers(response.transfer);
+      const transfers = response.transfers;
+      const users = response.users;
+      // loop through each transfer and combine username into a single object
+      async function createTransferList() {
+        const transferRecords = [];
+        for (let i = 0; i < transfers.length; i++) {
+          const transfer = transfers[i];
+          const toUserData = users.filter((user) => user._id === transfer.to);
+          const transferRecord = {
+            ...transfer,
+            toUsername: toUserData[0].username,
+          };
+          transferRecords.push(transferRecord);
+        }
+        return transferRecords;
+      }
+      const transferList = await createTransferList();
+      console.log(transferList);
+      setTransfers(transferList);
     } catch (error) {
       console.error("Error fetching your transfers", error);
     }
@@ -83,7 +101,6 @@ const HistoryPage = () => {
             <tr>
               <th>Transfer Date</th>
               <th>Amount</th>
-              <th>From</th>
               <th>To</th>
               <th>Description</th>
             </tr>
@@ -96,8 +113,7 @@ const HistoryPage = () => {
                       {new Date(transfer.transferDate).toLocaleDateString()}
                     </td>
                     <td>{transfer.amount}</td>
-                    <td>{transfer.from}</td>
-                    <td>{transfer.to}</td>
+                    <td>{transfer.toUsername}</td>
                     <td>{transfer.description}</td>
                   </tr>
                 ))
