@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import * as expenseAPI from "../../utilities/expense-api";
 import * as transferService from "../../utilities/transfer-service";
 import * as sharedExpenseAPI from "../../utilities/sharedexpense-api";
 import * as sharedExpenseService from "../../utilities/sharedexpense-service";
@@ -8,20 +7,49 @@ import { getUser } from "../../utilities/users-service";
 
 export default function Transfer() {
   const [transferDetails, setTransferDetails] = useState({});
-  const [expDescription, setExpDescription] = useState();
   const [expList, setExpList] = useState([]);
+  const [owedAmount, setOwedAmount] = useState(0);
+  const [user, setUser] = useState(getUser());
+
+  // Validators
+  const [validateExpenseSelect, setValidateExpenseSelect] = useState(true);
+  const [validateTransferAmt, setValidateTransferAmt] = useState(true);
+  const [disableSubmitBtn, setDisableSubmitBtn] = useState(true);
 
   useEffect(() => {
-    const fetchExpenses = async () => {
-      const expenses = await expenseAPI.findExpenses();
-      setExpList(expenses);
+    const fetchSharedExpenses = async () => {
+      const sharedExpensesData = await sharedExpenseAPI.findByUserIdWithExpenses(user._id);
+      const sharedExpenses = sharedExpensesData.sharedExpenses;
+      const expenses = sharedExpensesData.expenses;
+
+      // loop through each sharedExpenses and expenses and combine into a single object
+      async function createExpOptions() {
+        const sharedExpensesOptions = [];
+        for (let i = 0; i < sharedExpenses.length; i++) {
+          const sharedExpense = sharedExpenses[i];
+          const expense = expenses[i][0];
+          const expenseOption = {
+            ...sharedExpense,
+            createdBy: expense.createdBy,
+            incurredDate: expense.incurredDate,
+            description: expense.description,
+            category: expense.category,
+          };
+          sharedExpensesOptions.push(expenseOption);
+        }
+        return sharedExpensesOptions;
+      }
+      
+      const sharedExpensesList = await createExpOptions();
+      setExpList(sharedExpensesList);
+
+      // define default "from" value
       setTransferDetails({
-        ...transferDetails,
-        expenseId: expenses[0].expenseId,
+        from: user._id,
       });
     };
-    fetchExpenses();
-  }, []);
+    fetchSharedExpenses();
+  }, [user]);
 
   function handleChange(evt) {
     setTransferDetails({
@@ -30,38 +58,92 @@ export default function Transfer() {
     });
   }
 
-  async function handleSelect(evt) {
-    setExpDescription(evt.target.value);
-    const selectedIndex = await evt.target.options.selectedIndex;
-    setTransferDetails({
-      ...transferDetails,
-      expenseId: expList[selectedIndex].expenseId,
-      to: expList[selectedIndex].createdBy,
-    });
+  function handleSelect(evt) {
+    const selectedIndex = evt.target.value;
+    if (selectedIndex >= 0) {
+      setTransferDetails({
+        ...transferDetails,
+        expenseId: expList[selectedIndex].expenseId,
+        to: expList[selectedIndex].createdBy,
+      });
+      setOwedAmount(expList[selectedIndex].amountOwed)
+    } else {
+      setTransferDetails({
+        ...transferDetails,
+        expenseId: null,
+        to: null,
+      });
+      setOwedAmount(0);
+    }
   }
-  useEffect(() => {}, [transferDetails]);
 
-  async function handleSubmit(evt) {
-    evt.preventDefault();
-    const userid = getUser()._id;
-    let expenseid = transferDetails.expenseId;
-    transferService.createTransfer(transferDetails);
-    const reqExpenses = await sharedExpenseAPI.findByExpenseId(expenseid);
-    const result = reqExpenses.find(({ user }) => user === userid);
-    console.log(result);
-    let newAmountOwed = result.amountOwed - transferDetails.amount;
-    let newAmountPaid = result.amountPaid + transferDetails.amount;
-    const sharedExpenseDetails = {
-      ...result,
-      amountOwed: newAmountOwed,
-      amountPaid: newAmountPaid,
-      isPaid: true,
-    };
-    sharedExpenseService.updateSharedExpense(
-      expenseid,
-      userid,
-      sharedExpenseDetails
-    );
+  // check if expense is selected
+  function checkExpenseSelected() {
+    if (!transferDetails.expenseId) return true;
+    else return false;
+  }
+
+  // check if transferred amounts exceed amount
+  function checkTransferAmt() {
+    if (!transferDetails.amount) return true;
+    if (transferDetails.amount > owedAmount) return true;
+    else return false;
+  }
+  
+  // set disable state for submit button
+  function validateFields() {
+    if (!transferDetails.amount) return true;
+    else if (checkExpenseSelected()) return true;
+    else if (checkTransferAmt()) return true;
+    else return false;
+  }
+
+  // run validator to disable submit button
+  useEffect(() => {
+    setValidateExpenseSelect(checkExpenseSelected())
+    setValidateTransferAmt(checkTransferAmt());
+    setDisableSubmitBtn(validateFields());
+  }, [transferDetails]);
+
+  function handleSubmit(evt) {
+    try {
+      evt.preventDefault();
+
+      // get the selected expense details
+      const userid = user._id;
+      let expenseid = transferDetails.expenseId;
+      const expenseDetails = expList.filter((expense) => (expense.expenseId == expenseid));
+      console.log('expenseDetails', expenseDetails)
+
+      // calculate the amount paid to update sharedExpense owed amount
+      let newAmountOwed = Math.round(
+        ((parseFloat(expenseDetails[0].amountOwed) - parseFloat(transferDetails.amount)) * 100)
+      ) / 100;
+      let newAmountPaid = Math.round(
+        ((parseFloat(expenseDetails[0].amountPaid) + parseFloat(transferDetails.amount)) * 100)
+      ) / 100;
+      let clearedDebt = false;
+      if (newAmountOwed <= 0) {
+        clearedDebt = true;
+      };
+
+      console.log('expDetailsAmt', expenseDetails[0].amountOwed, 'trsfAmt', transferDetails.amount, 'expDetailsPaid', expenseDetails[0].amountPaid);
+
+      const sharedExpenseDetails = ({
+        ...expenseDetails[0],
+        amountOwed: newAmountOwed,
+        amountPaid: newAmountPaid,
+        isPaid: clearedDebt,
+      });
+
+      sharedExpenseService.updateSharedExpense(expenseid, userid, sharedExpenseDetails)
+
+      // create the transfer record
+      transferService.createTransfer(transferDetails); 
+      console.log('transfer details', transferDetails);
+    } catch (error) {
+      console.log("Failed to transfer expense");
+    }
   }
 
   return (
@@ -82,27 +164,43 @@ export default function Transfer() {
             type="number"
             name="amount"
             onChange={handleChange}
+            min={0}
             required
           ></input>
           <br />
           <label>Expense</label>
           <select
             name="expenseId"
-            value={expDescription}
             onChange={handleSelect}
           >
-            {expList.map((expense) => (
-              <option key={expense._id}>
-                ExpenseID {expense.expenseId} - {expense.description}
+            <option index="-1">Select a shared expense</option>
+            {expList.length > 0
+              ? expList.map((expense, index) => (
+              <option value={index} key={expense._id}>
+                ID {expense.expenseId} - {expense.description}
               </option>
-            ))}
+              ))
+              : null
+            }
           </select>
           <br />
+          { owedAmount > 0
+            ? <>Owed amount: {owedAmount}<br /></>
+            : null
+          }
+          { validateExpenseSelect
+            ? <>Please select an expense to pay!<br /></>
+            : null
+          }
+          { validateTransferAmt
+            ? <>Transfer amount cannot be more than owed amount!<br /></>
+            : null
+          }
           <label>Description</label>
-          <input type="text" name="description" onChange={handleChange}></input>
+          <input type="text" name="description" onChange={handleChange} required></input>
           <br />
           <div>
-            <button className="submit-btn" type="submit">
+            <button className="submit-btn" type="submit" disabled={disableSubmitBtn}>
               + Transfer
             </button>
           </div>
