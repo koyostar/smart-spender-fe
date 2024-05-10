@@ -53,7 +53,7 @@ function SignUpForm({ setUser }) {
             name="email"
             value={userData.email}
             onChange={handleChange}
-            className="bg-lightpri text-darkpri text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text font-inter font-extralight border-none"
+            className="bg-lightpri text-darkpri text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text border-none"
             placeholder="name@email.com"
             autoComplete="off"
             required
@@ -71,7 +71,7 @@ function SignUpForm({ setUser }) {
             onChange={handleChange}
             placeholder="Username"
             autoComplete="off"
-            className="bg-lightpri text-darkpri text-sm focus:outline-none block w-full p-2.5 cursor-text font-inter font-extralight border-none"
+            className="bg-lightpri text-darkpri text-sm focus:outline-none block w-full p-2.5 cursor-text border-none"
             required
           />
         </div>
@@ -86,7 +86,7 @@ function SignUpForm({ setUser }) {
             value={userData.password}
             onChange={handleChange}
             placeholder="Password"
-            className="bg-lightpri text-darkpri text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text font-inter font-extralight border-none"
+            className="bg-lightpri text-darkpri text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text border-none"
             required
           />
         </div>
@@ -105,19 +105,19 @@ function SignUpForm({ setUser }) {
             onChange={handleChange}
             autoComplete="off"
             placeholder="Repeat Password"
-            className="bg-lightpri text-darkpri text-sm focus:ring-zinc-500 block focus:outline-none w-full p-2.5 cursor-text font-inter font-extralight border-none"
+            className="bg-lightpri text-darkpri text-sm focus:ring-zinc-500 block focus:outline-none w-full p-2.5 cursor-text border-none"
             required
           />
         </div>
         <button
           type="submit"
-          className="text-white bg-darkpri hover4bg-[#57ABebas f$cus:$ing-2 focus:outline-none focus:ring-gray-400 text-3xl px-3 py-2.5 text-center w-full rounded-xl"
+          className="text-lightpri bg-darkpri hover:bg-darksec focus:outline-none focus:ring-gray-400 text-3xl px-3 py-2.5 text-center w-full rounded-xl"
         >
           SIGN UP
         </button>
       </form>
       <Link to="/login">
-        <span className="text-white text-md btn btn-ghost btn-sm bg-darkpri hover4bg-[#57ABebas r$unde$-md absolute top-4 right-4 normal-case">
+        <span className="text-lightpri text-md btn btn-ghost btn-sm bg-darkpri hover:bg-darksec rounded-md absolute top-4 right-4 normal-case">
           Sign In
         </span>
       </Link>

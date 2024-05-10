@@ -47,7 +47,7 @@ function LoginForm({ setUser }) {
             autoComplete="off"
             value={credentials.username}
             onChange={handleChange}
-            className="bg-lightpri text-gray-900 text-sm focus:outline-none block w-full p-2.5 cursor-text font-extralight border-none"
+            className="bg-lightpri text-darksec text-sm focus:outline-none block w-full p-2.5 cursor-text border-none"
             required
           />
         </div>
@@ -62,7 +62,7 @@ function LoginForm({ setUser }) {
             autoComplete="off"
             value={credentials.password}
             onChange={handleChange}
-            className="bg-lightpri text-gray-900 text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text font-extralight border-none"
+            className="bg-lightpri text-darksec text-sm focus:ring-zinc-500 block w-full p-2.5 cursor-text border-none"
             required
           />
         </div>
@@ -72,7 +72,7 @@ function LoginForm({ setUser }) {
         >
           SIGN IN
         </button>
-        <footer className="mt-6 text-center">
+        <footer className="text-darkpri mt-6 text-center">
           New to Smart Spender?
           <br />
           <Link to="/signup">

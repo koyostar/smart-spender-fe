@@ -103,19 +103,21 @@ const DebtStats = () => {
               <th>Debts To Collect &nbsp;:</th>
               <td>${totalAmountToCollect}</td>
             </tr>
-            {userDetailsArray.map((userDetail, index) => (
-              <tr key={index}>
-                <ul>
-                  <li className="list-inside	list-disc	ps-10	mt-2">
-                    EXPENSE ID {userDetail.expenseId}: &emsp;
-                    {userDetail.username} owes you &nbsp;
-                    <span className="bg-darkpri text-lightpri font-bold px-2 text-xl">
-                      ${userDetail.amountOwed}
-                    </span>
-                  </li>
-                </ul>
-              </tr>
-            ))}
+            {userDetailsArray
+              .sort((a, b) => a.expenseId - b.expenseId)
+              .map((userDetail, index) => (
+                <tr key={index}>
+                  <ul>
+                    <li className="list-inside list-disc	mt-2">
+                      EXPENSE ID {userDetail.expenseId}: &emsp;
+                      {userDetail.username} owes you &nbsp;
+                      <span className="bg-darkpri text-lightpri font-bold px-2 text-xl">
+                        ${userDetail.amountOwed}
+                      </span>
+                    </li>
+                  </ul>
+                </tr>
+              ))}
           </tbody>
         </table>
       )}

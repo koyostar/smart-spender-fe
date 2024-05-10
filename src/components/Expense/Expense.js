@@ -80,7 +80,7 @@ export default function Expense() {
       <CreateTabs />
       <div className="form-container">
         <form autoComplete="off" onSubmit={handleSubmit}>
-          <label>Date:</label>
+          <label>Date: &emsp;</label>
           <input
             type="date"
             name="incurredDate"
@@ -88,7 +88,7 @@ export default function Expense() {
             required
           ></input>
           <br />
-          <label>Category</label>
+          <label>Category: &emsp;</label>
           <select
             name="category"
             value={category}
@@ -100,7 +100,7 @@ export default function Expense() {
             <option value="accommodation">Accommodation</option>
           </select>
           <br />
-          <label>Amount</label>
+          <label>Amount: &emsp;</label>
           <input
             type="number"
             min="0"
@@ -109,10 +109,10 @@ export default function Expense() {
             required
           ></input>
           <br />
-          <label>Description</label>
+          <label>Description: &emsp;</label>
           <input type="text" name="description" onChange={handleChange}></input>
           <div>
-            <label>Shared with:</label>
+            <label>Shared with: &emsp;</label>
             <br />
             <SharedWith
               sharedAmt={sharedAmt}
@@ -131,13 +131,13 @@ export default function Expense() {
               <p>Shared amount total must be less than Amount!</p>
             ) : null}
           </div>
-          <div>
+          <div className="flex flex-col items-center justify-center">
             <button
-              className="submit-btn"
+              className="submit-btn "
               type="submit"
               disabled={disableSubmitBtn}
             >
-              + Add expense
+              ADD
             </button>
           </div>
         </form>

@@ -9,6 +9,10 @@
   }
 }
 
+:root {
+  @apply bg-moneybg bg-contain;
+}
+
 @tailwind components;
 @tailwind utilities;
 
@@ -19,6 +23,10 @@
 .form-container,
 .statistics {
   @apply bg-lightsec h-fit rounded-b-xl pb-10 p-5 mx-auto;
+}
+
+.form-container {
+  @apply flex flex-col items-center justify-center  pb-0;
 }
 
 .tabless-container {
@@ -38,7 +46,11 @@
 }
 
 .submit-btn {
-  @apply bg-lightpri text-lightsec mt-3 p-2 active:bg-darkpri active:text-lightpri font-bold px-4 ml-3 rounded;
+  @apply bg-darkpri text-lightpri font-bold px-4 ml-3  mt-5 p-2 rounded;
+}
+
+.submit-btn:disabled {
+  @apply bg-lightpri text-lightsec;
 }
 
 .stats-table {

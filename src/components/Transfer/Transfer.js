@@ -18,7 +18,8 @@ export default function Transfer() {
 
   useEffect(() => {
     const fetchSharedExpenses = async () => {
-      const sharedExpensesData = await sharedExpenseAPI.findByUserIdWithExpenses(user._id);
+      const sharedExpensesData =
+        await sharedExpenseAPI.findByUserIdWithExpenses(user._id);
       const sharedExpenses = sharedExpensesData.sharedExpenses;
       const expenses = sharedExpensesData.expenses;
 
@@ -39,7 +40,7 @@ export default function Transfer() {
         }
         return sharedExpensesOptions;
       }
-      
+
       const sharedExpensesList = await createExpOptions();
       setExpList(sharedExpensesList);
 
@@ -66,7 +67,7 @@ export default function Transfer() {
         expenseId: expList[selectedIndex].expenseId,
         to: expList[selectedIndex].createdBy,
       });
-      setOwedAmount(expList[selectedIndex].amountOwed)
+      setOwedAmount(expList[selectedIndex].amountOwed);
     } else {
       setTransferDetails({
         ...transferDetails,
@@ -89,7 +90,7 @@ export default function Transfer() {
     if (transferDetails.amount > owedAmount) return true;
     else return false;
   }
-  
+
   // set disable state for submit button
   function validateFields() {
     if (!transferDetails.amount) return true;
@@ -100,7 +101,7 @@ export default function Transfer() {
 
   // run validator to disable submit button
   useEffect(() => {
-    setValidateExpenseSelect(checkExpenseSelected())
+    setValidateExpenseSelect(checkExpenseSelected());
     setValidateTransferAmt(checkTransferAmt());
     setDisableSubmitBtn(validateFields());
   }, [transferDetails]);
@@ -112,31 +113,43 @@ export default function Transfer() {
       // get the selected expense details
       const userid = user._id;
       let expenseid = transferDetails.expenseId;
-      const expenseDetails = expList.filter((expense) => (expense.expenseId == expenseid));
+      const expenseDetails = expList.filter(
+        (expense) => expense.expenseId == expenseid
+      );
 
       // calculate the amount paid to update sharedExpense owed amount
-      let newAmountOwed = Math.round(
-        ((parseFloat(expenseDetails[0].amountOwed) - parseFloat(transferDetails.amount)) * 100)
-      ) / 100;
-      let newAmountPaid = Math.round(
-        ((parseFloat(expenseDetails[0].amountPaid) + parseFloat(transferDetails.amount)) * 100)
-      ) / 100;
+      let newAmountOwed =
+        Math.round(
+          (parseFloat(expenseDetails[0].amountOwed) -
+            parseFloat(transferDetails.amount)) *
+            100
+        ) / 100;
+      let newAmountPaid =
+        Math.round(
+          (parseFloat(expenseDetails[0].amountPaid) +
+            parseFloat(transferDetails.amount)) *
+            100
+        ) / 100;
       let clearedDebt = false;
       if (newAmountOwed <= 0) {
         clearedDebt = true;
-      };
+      }
 
-      const sharedExpenseDetails = ({
+      const sharedExpenseDetails = {
         ...expenseDetails[0],
         amountOwed: newAmountOwed,
         amountPaid: newAmountPaid,
         isPaid: clearedDebt,
-      });
+      };
 
-      sharedExpenseService.updateSharedExpense(expenseid, userid, sharedExpenseDetails)
+      sharedExpenseService.updateSharedExpense(
+        expenseid,
+        userid,
+        sharedExpenseDetails
+      );
 
       // create the transfer record
-      transferService.createTransfer(transferDetails); 
+      transferService.createTransfer(transferDetails);
     } catch (error) {
       console.log("Failed to transfer expense");
     }
@@ -147,7 +160,7 @@ export default function Transfer() {
       <CreateTabs />
       <div className="form-container">
         <form autoComplete="off" onSubmit={handleSubmit}>
-          <label>Date:</label>
+          <label>Date: &emsp;</label>
           <input
             type="date"
             name="transferDate"
@@ -155,7 +168,7 @@ export default function Transfer() {
             required
           ></input>
           <br />
-          <label>Amount</label>
+          <label>Amount: &emsp;</label>
           <input
             type="number"
             name="amount"
@@ -164,40 +177,51 @@ export default function Transfer() {
             required
           ></input>
           <br />
-          <label>Expense</label>
-          <select
-            name="expenseId"
-            onChange={handleSelect}
-          >
+          <label>Expense: &emsp;</label>
+          <select name="expenseId" onChange={handleSelect}>
             <option index="-1">Select a shared expense</option>
             {expList.length > 0
               ? expList.map((expense, index) => (
-              <option value={index} key={expense._id}>
-                ID {expense.expenseId} - {expense.description}
-              </option>
-              ))
-              : null
-            }
+                  <option value={index} key={expense._id}>
+                    ID {expense.expenseId} - {expense.description}
+                  </option>
+                ))
+              : null}
           </select>
           <br />
-          { owedAmount > 0
-            ? <>Owed amount: {owedAmount}<br /></>
-            : null
-          }
-          { validateExpenseSelect
-            ? <>Please select an expense to pay!<br /></>
-            : null
-          }
-          { validateTransferAmt
-            ? <>Transfer amount cannot be more than owed amount!<br /></>
-            : null
-          }
-          <label>Description</label>
-          <input type="text" name="description" onChange={handleChange} required></input>
+          {owedAmount > 0 ? (
+            <>
+              Owed amount: {owedAmount}
+              <br />
+            </>
+          ) : null}
+          {validateExpenseSelect ? (
+            <>
+              Please select an expense to pay!
+              <br />
+            </>
+          ) : null}
+          {validateTransferAmt ? (
+            <>
+              Transfer amount cannot be more than owed amount!
+              <br />
+            </>
+          ) : null}
+          <label>Description: &emsp;</label>
+          <input
+            type="text"
+            name="description"
+            onChange={handleChange}
+            required
+          ></input>
           <br />
-          <div>
-            <button className="submit-btn" type="submit" disabled={disableSubmitBtn}>
-              + Transfer
+          <div className="flex flex-col items-center justify-center">
+            <button
+              className="submit-btn"
+              type="submit"
+              disabled={disableSubmitBtn}
+            >
+              TRANSFER
             </button>
           </div>
         </form>
