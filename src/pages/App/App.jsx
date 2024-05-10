@@ -20,7 +20,7 @@ function App() {
   const [user, setUser] = useState(getUser());
 
   return (
-    <main className="h-screen min-w-screen bg-moneybg bg-contain">
+    <main className="h-screen min-w-screen ">
       {user ? (
         <>
           <NavBar user={user} setUser={setUser} />

@@ -7,10 +7,10 @@ function LandingPage() {
         $mart $pender
       </span>
       <div className="hero min-h-screen">
-        <div className="hero-overlay bg-opacity-50"></div>
+        <div className="hero-overlay bg-opacity-0"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-2xl">
-            <h1 className="mb-5 text-5xl font-bold text-lightpri">
+            <h1 className="mb-5 text-5xl font-extrabold text-darkpri">
               Splitting costs, not friendships.
             </h1>
             <Link to="/signup">
@@ -22,7 +22,7 @@ function LandingPage() {
         </div>
       </div>
       <Link to="/login">
-        <span className="text-white text-md btn btn-ghost btn-sm bg-darkpri hover:bg-darksec rounded-md absolute top-4 right-4 normal-case">
+        <span className="text-lightpri text-md btn btn-ghost btn-sm bg-darkpri hover:bg-darksec rounded-md absolute top-4 right-4 normal-case">
           Sign In
         </span>
       </Link>
