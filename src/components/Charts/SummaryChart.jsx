@@ -114,7 +114,7 @@ export default function SummaryChart() {
         series={[
           {
             data: summaryStatsData,
-            color: "#57abd8",
+            color: "#FFEAD2",
             valueFormatter,
           },
         ]}
@@ -129,7 +129,7 @@ export default function SummaryChart() {
           tickLabelStyle: {
             textAnchor: "end",
             fontSize: 12,
-            fill: "white",
+            fill: "#4B527E",
             fontWeight: "bold",
           },
         }}
@@ -137,7 +137,7 @@ export default function SummaryChart() {
           tickLabelStyle: {
             textAnchor: "middle",
             fontSize: 12,
-            fill: "white",
+            fill: "#4B527E",
           },
         }}
         margin={{ left: 80, right: 70, top: 0 }}

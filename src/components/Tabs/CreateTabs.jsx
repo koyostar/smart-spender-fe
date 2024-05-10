@@ -11,10 +11,10 @@ export default function CreateTabs() {
       <div className="tabs">
         <Link to="/create/expense">
           <button
-            className={`w-60 rounded-t-lg hover:bg-white hover:text-neutral-500 hover:text-lg ${
+            className={`create-tab-btn ${
               location.pathname === "/create/expense"
-                ? "text-white bg-[#004F8F]"
-                : "bg-neutral-500 hover:text-white"
+                ? "text-darkpri bg-lightsec"
+                : "text-lightsec bg-lightpri hover:text-darksec hover:bg-lightacc"
             }`}
           >
             Expense
@@ -22,17 +22,16 @@ export default function CreateTabs() {
         </Link>
         <Link to="/create/transfer">
           <button
-            className={`w-60 rounded-t-lg hover:bg-white hover:text-neutral-500 hover:text-lg ${
+            className={`create-tab-btn  ${
               location.pathname === "/create/transfer"
-                ? "text-white bg-[#004F8F]"
-                : "bg-neutral-500 hover:text-white"
+                ? "text-darkpri bg-lightsec"
+                : "text-lightsec bg-lightpri hover:text-darksec hover:bg-lightacc"
             }`}
           >
             Transfer
           </button>
         </Link>
       </div>
-      <h2>Hi {user.toUpperCase()}</h2>
     </div>
   );
 }

@@ -3,7 +3,6 @@ import * as expenseAPI from "../../utilities/expense-api";
 import * as transferService from "../../utilities/transfer-service";
 import * as sharedExpenseAPI from "../../utilities/sharedexpense-api";
 import * as sharedExpenseService from "../../utilities/sharedexpense-service";
-import "./Transfer.css";
 import CreateTabs from "../Tabs/CreateTabs";
 import { getUser } from "../../utilities/users-service";
 
@@ -40,31 +39,33 @@ export default function Transfer() {
       to: expList[selectedIndex].createdBy,
     });
   }
-  useEffect(() => {
+  useEffect(() => {}, [transferDetails]);
 
-  }, [transferDetails]);
- 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    const userid = getUser()._id
-    let expenseid = transferDetails.expenseId
+    const userid = getUser()._id;
+    let expenseid = transferDetails.expenseId;
     transferService.createTransfer(transferDetails);
-    const reqExpenses = await sharedExpenseAPI.findByExpenseId(expenseid)
-    const result = reqExpenses.find(({user}) => user === userid)
-    console.log(result)
-    let newAmountOwed = result.amountOwed - transferDetails.amount
-    let newAmountPaid = result.amountPaid + transferDetails.amount
-    const sharedExpenseDetails = ({
+    const reqExpenses = await sharedExpenseAPI.findByExpenseId(expenseid);
+    const result = reqExpenses.find(({ user }) => user === userid);
+    console.log(result);
+    let newAmountOwed = result.amountOwed - transferDetails.amount;
+    let newAmountPaid = result.amountPaid + transferDetails.amount;
+    const sharedExpenseDetails = {
       ...result,
       amountOwed: newAmountOwed,
       amountPaid: newAmountPaid,
       isPaid: true,
-    })
-    sharedExpenseService.updateSharedExpense(expenseid, userid, sharedExpenseDetails)
+    };
+    sharedExpenseService.updateSharedExpense(
+      expenseid,
+      userid,
+      sharedExpenseDetails
+    );
   }
 
   return (
-    <div className="transfer-container font-bebas">
+    <div className="tabs-container">
       <CreateTabs />
       <div className="form-container">
         <form autoComplete="off" onSubmit={handleSubmit}>
@@ -101,7 +102,9 @@ export default function Transfer() {
           <input type="text" name="description" onChange={handleChange}></input>
           <br />
           <div>
-            <button type="submit">+ Transfer</button>
+            <button className="submit-btn" type="submit">
+              + Transfer
+            </button>
           </div>
         </form>
       </div>

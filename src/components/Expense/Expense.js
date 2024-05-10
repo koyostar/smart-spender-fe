@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import * as expenseService from "../../utilities/expense-service";
 import SharedWith from "../SharedWith/SharedWith";
 import { v4 as uuidv4 } from "uuid";
-import "./Expense.css";
 import CreateTabs from "../Tabs/CreateTabs";
 
 export default function Expense() {
-  const [expenseDetails, setExpenseDetails] = useState({category: 'travel'})
-  const [error, setError] = useState('')
-  const [category, setCategory] = useState('Travel')
-  const [sharedAmt, setSharedAmt] = useState('0');
+  const [expenseDetails, setExpenseDetails] = useState({ category: "travel" });
+  const [error, setError] = useState("");
+  const [category, setCategory] = useState("Travel");
+  const [sharedAmt, setSharedAmt] = useState("0");
   const [sharedExpenses, setSharedExpenses] = useState([
     { id: uuidv4(), friend: "", amount: 0 },
   ]);
@@ -52,9 +51,9 @@ export default function Expense() {
       const sharedExpense = sharedExpenses[i];
       friendIds.push(sharedExpense.friend);
     }
-    return friendIds.includes('');
+    return friendIds.includes("");
   }
-  
+
   // check if shared amounts exceed amount
   function checkSharedAmountExceeds() {
     if (!expenseDetails.amount) return true;
@@ -74,10 +73,10 @@ export default function Expense() {
     setValidateSharedAmt(checkSharedAmountExceeds());
     setValidateFriendSelect(checkFriendSelected());
     setDisableSubmitBtn(validateFields());
-  }, [expenseDetails])
-  
+  }, [expenseDetails]);
+
   return (
-    <div className="expense-container font-bebas">
+    <div className="tabs-container">
       <CreateTabs />
       <div className="form-container">
         <form autoComplete="off" onSubmit={handleSubmit}>
@@ -124,17 +123,20 @@ export default function Expense() {
               setExpenseDetails={setExpenseDetails}
               key="0"
             />
-            { validateFriendSelect
-              ? <p>You must select a friend to share expenses</p>
-              : null
-            }<br></br>
-            { validateSharedAmt
-              ? <p>Shared amount total must be less than Amount!</p>
-              : null
-            }
+            {validateFriendSelect ? (
+              <p>You must select a friend to share expenses</p>
+            ) : null}
+            <br></br>
+            {validateSharedAmt ? (
+              <p>Shared amount total must be less than Amount!</p>
+            ) : null}
           </div>
           <div>
-            <button type="submit" disabled={disableSubmitBtn}>
+            <button
+              className="submit-btn"
+              type="submit"
+              disabled={disableSubmitBtn}
+            >
               + Add expense
             </button>
           </div>

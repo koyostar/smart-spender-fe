@@ -1,94 +1,83 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@200;300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 @tailwind base;
+
+@layer base {
+  html {
+    font-family: "Roboto", "sans-serif";
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
 
-nav {
-  background-color: silver;
-  margin-bottom: 30px;
-  color: #004f8f;
+.tabs-container {
+  @apply max-w-xl mx-auto text-darksec font-bold;
 }
 
-body {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+.form-container,
+.statistics {
+  @apply bg-lightsec h-fit rounded-b-xl pb-10 p-5 mx-auto;
 }
 
-.statistics-container,
-.expense-container,
-.transfer-container,
-.friends-container,
-.history-container {
-  background-color: #004f8f;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 30rem;
-  height: 40rem;
-  border-radius: 0.75rem;
-  font-weight: bold;
-  align-items: center;
-  font-size: 20px;
-}
-
-.form-container {
-  padding: 40px;
+.tabless-container {
+  @apply max-w-xl h-fit bg-lightsec text-darksec font-bold rounded-xl mx-auto py-4 px-10;
 }
 
 .tabs {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: black;
+  @apply flex flex-row justify-between bg-transparent;
 }
 
-.tabs button {
-  font-size: 1.5rem;
-  font-weight: bold;
+.summary-tab-btn {
+  @apply w-48 rounded-t-lg text-2xl py-1 font-bold;
+}
+
+.create-tab-btn {
+  @apply w-72 rounded-t-lg text-2xl py-1 font-bold;
+}
+
+.submit-btn {
+  @apply bg-lightpri text-lightsec mt-3 p-2 active:bg-darkpri active:text-lightpri font-bold px-4 ml-3 rounded;
 }
 
 .stats-table {
-  justify-content: center;
-  padding: 0 50px 10px;
+  @apply px-10;
 }
 
 table {
-  width: 100%;
-  text-align: left;
-  border-collapse: collapse;
+  @apply container text-left border-collapse;
 }
 
-th,
-td {
-  padding: 10px;
-  border-bottom: 1px solid white;
-  font-size: 1.2rem;
+.stats-table th {
+  @apply text-lg text-left py-3;
+  border-bottom: 1px solid #dbdfea;
 }
 
-th {
-  font-weight: bold;
-  text-align: left;
+.stats-table td {
+  @apply text-lg text-right py-3;
+  border-bottom: 1px solid #dbdfea;
 }
 
-td {
-  font-size: 1.5rem;
-  text-align: left;
+.history-table {
+  @apply p-3  text-lg text-center overflow-x-auto;
 }
 
-.history-container table th,
-.history-container table td {
-  white-space: nowrap;
+.history-table th {
+  @apply bg-lightpri text-darksec text-center p-2;
 }
 
-.history-container table thead {
-  display: table-header-group;
-}
-
-.history-container tr:last-child td {
-  border-bottom: none;
+.history-table td {
+  @apply text-darkpri text-base text-center py-3;
+  border-bottom: 1px solid #dbdfea;
 }
 
 h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin: 10px;
+  @apply text-darkpri text-2xl text-center font-extrabold mb-5;
+}
+
+input,
+select,
+option {
+  @apply text-darksec text-opacity-50 font-normal;
 }

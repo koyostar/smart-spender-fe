@@ -14,57 +14,61 @@ export default function NavBar({ user, setUser }) {
   };
 
   return (
-    <nav>
-      <div className="font-bebas flex flex-wrap justify-between items-center mx-auto max-w-screen p-4 font-inter font-extralight place-content-around">
-        <div className="flex items-center font-bebas text-3xl place-content-around ">
-          <span className="text-[#004F8F] self-center text-5xl whitespace-nowrap">
+    <nav className=" bg-darkpri font-bebas mb-5 py-3">
+      <div className=" flex flex-wrap justify-between items-center mx-auto max-w-screen p-4 place-content-around">
+        <div className="flex items-center text-4xl place-content-around ">
+          <span className="text-lightpri self-center text-5xl whitespace-nowrap">
             <Link to="/home">$mart $pender</Link>
           </span>
           <Link
             to="/home"
-            className={`mx-10 hover:text-3xl ${
+            className={`mx-10 ${
               location.pathname === "/home"
-                ? "text-white hover:text-lg"
-                : "text-neutral-500 hover:text-white"
+                ? "text-darkacc"
+                : "text-lightpri hover:pb-1 hover:text-lightacc"
             }`}
           >
             Home
           </Link>
           <Link
             to="/create"
-            className={`mr-10 hover:text-xl ${
+            className={`mr-10 ${
               location.pathname === "/create"
-                ? "text-white hover:text-lg"
-                : "text-neutral-500 hover:text-white"
+                ? "text-darkacc"
+                : "text-lightpri hover:pb-1 hover:text-lightacc"
             }`}
           >
             Create
           </Link>
           <Link
             to="/history"
-            className={`mr-10 hover:text-xl ${
+            className={`mr-10 ${
               location.pathname === "/history"
-                ? "text-white hover:text-lg"
-                : "text-neutral-500 hover:text-white"
+                ? "text-darkacc"
+                : "text-lightpri hover:pb-1 hover:text-lightacc"
             }`}
           >
             History
           </Link>
           <Link
             to="/friends"
-            className={`mr-10 hover:text-xl ${
+            className={`mr-10 ${
               location.pathname === "/friends"
-                ? "text-white hover:text-lg"
-                : "text-neutral-500 hover:text-white"
+                ? "text-darkacc"
+                : "text-lightpri hover:pb-1 hover:text-lightacc"
             }`}
           >
             Friends
           </Link>
         </div>
-        <div className="flex items-center font-bebas text-xl">
-          <TbUserSquare className="text-4xl text-neutral-500 mr-2" />
-          <span>{user.username}</span>
-          <Link to="/" onClick={handleLogOut} className="hover:underline ml-6">
+        <div className="text-lightacc flex items-center text-xl">
+          <TbUserSquare className="text-4xl  mr-2" />
+          <span>{user.username.toUpperCase()}</span>
+          <Link
+            to="/"
+            onClick={handleLogOut}
+            className="text-lightpri hover:pb-1 hover:text-lightacc ml-6"
+          >
             Logout
           </Link>
         </div>

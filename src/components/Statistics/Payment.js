@@ -94,22 +94,16 @@ const PaymentStats = () => {
         <table>
           <tbody>
             <tr>
-              <th>
-                Expenses Paid by Others<span>:</span>
-              </th>
-              <td>{totalSharedExpenses}</td>
+              <th>Expenses Paid by Others &nbsp;:</th>
+              <td>${totalSharedExpenses}</td>
             </tr>
             <tr>
-              <th>
-                Amount Returned<span>:</span>
-              </th>
-              <td>{totalPaidSharedExpenses}</td>
+              <th>Amount Returned &nbsp;:</th>
+              <td>${totalPaidSharedExpenses}</td>
             </tr>
             <tr>
-              <th>
-                Amount Owed<span>:</span>
-              </th>
-              <td>{totalUnpaidSharedExpenses}</td>
+              <th>Amount Owed &nbsp;:</th>
+              <td>${totalUnpaidSharedExpenses}</td>
             </tr>
           </tbody>
         </table>

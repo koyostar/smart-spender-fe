@@ -3,7 +3,6 @@ import { getUser } from "../../utilities/users-service";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function SummaryTabs() {
-  const user = getUser().username;
   const location = useLocation();
 
   return (
@@ -11,10 +10,10 @@ export default function SummaryTabs() {
       <div className="tabs">
         <Link to="/summary">
           <button
-            className={`w-40 rounded-t-lg hover:bg-white hover:text-neutral-500 hover:text-lg ${
+            className={`summary-tab-btn ${
               location.pathname === "/summary"
-                ? "text-white bg-[#004F8F]"
-                : "bg-neutral-500 hover:text-white"
+                ? "text-darkpri bg-lightsec"
+                : "text-lightsec bg-lightpri hover:text-darksec hover:bg-lightacc"
             }`}
           >
             Summary
@@ -22,10 +21,10 @@ export default function SummaryTabs() {
         </Link>
         <Link to="/debt">
           <button
-            className={`w-40 rounded-t-lg hover:bg-white hover:text-neutral-500 hover:text-lg ${
+            className={`summary-tab-btn ${
               location.pathname === "/debt"
-                ? "text-white bg-[#004F8F]"
-                : "bg-neutral-500 hover:text-white"
+                ? "text-darkpri bg-lightsec"
+                : "text-lightsec bg-lightpri hover:text-darksec hover:bg-lightacc"
             }`}
           >
             Debt
@@ -33,17 +32,16 @@ export default function SummaryTabs() {
         </Link>
         <Link to="/loan">
           <button
-            className={`w-40 rounded-t-lg hover:bg-white hover:text-neutral-500 hover:text-lg ${
+            className={`summary-tab-btn ${
               location.pathname === "/loan"
-                ? "text-white bg-[#004F8F]"
-                : "bg-neutral-500 hover:text-white"
+                ? "text-darkpri bg-lightsec"
+                : "text-lightsec bg-lightpri hover:text-darksec hover:bg-lightacc"
             }`}
           >
             Loan
           </button>
         </Link>
       </div>
-      <h2>Hi {user.toUpperCase()}</h2>
     </div>
   );
 }
