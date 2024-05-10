@@ -82,7 +82,7 @@ const FriendsPage = ({ userId }) => {
         {searchResults.map((searchResult) => (
           <div
             key={searchResult._id}
-            className="flex justify-between items-center bg-acccol text-white text-lg rounded-lg p-2 my-2"
+            className="flex justify-between items-center bg-seccol text-pricol text-lg rounded-lg p-2 my-2"
           >
             <span>{searchResult.username.toUpperCase()}</span>
             <button
@@ -99,7 +99,7 @@ const FriendsPage = ({ userId }) => {
         {friends.map((friend) => (
           <div
             key={friend._id}
-            className="flex justify-between items-center bg-seccol text-pricol text-lg rounded-lg p-2 my-2"
+            className="flex justify-between items-center bg-acccol text-white text-lg rounded-lg p-2 my-2"
           >
             <span>{friend.username.toUpperCase()}</span>
             <button

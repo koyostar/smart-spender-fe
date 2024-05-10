@@ -37,30 +37,35 @@
 }
 
 .stats-table {
-  @apply justify-center px-10;
+  @apply px-10;
 }
 
 table {
-  width: 100%;
-  text-align: left;
-  border-collapse: collapse;
+  @apply container text-left border-collapse;
 }
 
-th,
-td {
-  padding: 10px;
+.stats-table th {
+  @apply text-lg text-left py-3;
   border-bottom: 1px solid white;
-  font-size: 1.2rem;
 }
 
-th {
-  font-weight: bold;
-  text-align: left;
+.stats-table td {
+  @apply text-lg text-right py-3;
+  border-bottom: 1px solid white;
 }
 
-td {
-  font-size: 1.5rem;
-  text-align: left;
+.history-table {
+  @apply p-3  text-lg text-center overflow-x-auto;
+}
+
+.history-table th {
+  @apply bg-seccol text-pricol text-opacity-75 text-center p-2;
+  border-bottom: 1px solid white;
+}
+
+.history-table td {
+  @apply text-base text-center py-3;
+  border-bottom: 1px solid white;
 }
 
 h2 {
@@ -70,7 +75,5 @@ h2 {
 input,
 select,
 option {
-  /* display: flex; */
-  /* justify-content: space-between; */
   @apply text-pricol text-opacity-50 font-normal;
 }

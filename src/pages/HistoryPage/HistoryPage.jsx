@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { getUser } from "../../utilities/users-service";
 import { findUserExpenses } from "../../utilities/expense-api";
 import { findUserTransfers } from "../../utilities/transfer-api";
-import "./HistoryPage.css";
 
 const HistoryPage = () => {
   const [expenses, setExpenses] = useState([]);
@@ -48,9 +47,9 @@ const HistoryPage = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="history-container app-container p-10">
+    <div className="app-container p-5">
       <h2>Expense History</h2>
-      <div className="overflow-x-auto">
+      <div className="history-table">
         <table>
           <thead>
             <tr>
@@ -76,8 +75,9 @@ const HistoryPage = () => {
           </tbody>
         </table>
       </div>
+      <br />
       <h2>Transfer History</h2>
-      <div className="overflow-x-auto">
+      <div className="history-table">
         <table>
           <thead>
             <tr>
