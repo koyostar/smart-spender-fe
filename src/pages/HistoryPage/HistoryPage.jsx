@@ -108,4 +108,5 @@ const HistoryPage = () => {
     </div>
   );
 };
+
 export default HistoryPage;
