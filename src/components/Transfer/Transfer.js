@@ -113,7 +113,6 @@ export default function Transfer() {
       const userid = user._id;
       let expenseid = transferDetails.expenseId;
       const expenseDetails = expList.filter((expense) => (expense.expenseId == expenseid));
-      console.log('expenseDetails', expenseDetails)
 
       // calculate the amount paid to update sharedExpense owed amount
       let newAmountOwed = Math.round(
@@ -127,8 +126,6 @@ export default function Transfer() {
         clearedDebt = true;
       };
 
-      console.log('expDetailsAmt', expenseDetails[0].amountOwed, 'trsfAmt', transferDetails.amount, 'expDetailsPaid', expenseDetails[0].amountPaid);
-
       const sharedExpenseDetails = ({
         ...expenseDetails[0],
         amountOwed: newAmountOwed,
@@ -140,7 +137,6 @@ export default function Transfer() {
 
       // create the transfer record
       transferService.createTransfer(transferDetails); 
-      console.log('transfer details', transferDetails);
     } catch (error) {
       console.log("Failed to transfer expense");
     }
