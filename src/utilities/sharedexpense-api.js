@@ -9,6 +9,10 @@ export function createSharedExpense(sharedExpenseDetails) {
   return sendRequest(`${BASE_URL}/create`, "POST", sharedExpenseDetails);
 }
 
+export function findByUserIdWithExpenses(userId) {
+  return sendRequest(`${BASE_URL}/find/user/${userId}/expenses`);
+}
+
 export function findByExpenseId(expenseid) {
   return sendRequest(`${BASE_URL}/find/expenseid/${expenseid}`);
 }
