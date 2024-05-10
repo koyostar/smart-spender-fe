@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import * as expenseService from "../../utilities/expense-service";
 import SharedWith from "../SharedWith/SharedWith";
 import { v4 as uuidv4 } from "uuid";
-import "./Expense.css";
 import CreateTabs from "../Tabs/CreateTabs";
 
 export default function Expense() {
@@ -133,7 +132,11 @@ export default function Expense() {
             ) : null}
           </div>
           <div>
-            <button type="submit" disabled={disableSubmitBtn}>
+            <button
+              className="submit-btn"
+              type="submit"
+              disabled={disableSubmitBtn}
+            >
               + Add expense
             </button>
           </div>

@@ -3,7 +3,6 @@ import * as expenseAPI from "../../utilities/expense-api";
 import * as transferService from "../../utilities/transfer-service";
 import * as sharedExpenseAPI from "../../utilities/sharedexpense-api";
 import * as sharedExpenseService from "../../utilities/sharedexpense-service";
-import "./Transfer.css";
 import CreateTabs from "../Tabs/CreateTabs";
 import { getUser } from "../../utilities/users-service";
 
@@ -103,7 +102,9 @@ export default function Transfer() {
           <input type="text" name="description" onChange={handleChange}></input>
           <br />
           <div>
-            <button type="submit">+ Transfer</button>
+            <button className="submit-btn" type="submit">
+              + Transfer
+            </button>
           </div>
         </form>
       </div>

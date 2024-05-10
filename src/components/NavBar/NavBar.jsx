@@ -63,7 +63,7 @@ export default function NavBar({ user, setUser }) {
         </div>
         <div className="text-seccol flex items-center text-xl">
           <TbUserSquare className="text-4xl text-acccol mr-2" />
-          <span>{user.username}</span>
+          <span>{user.username.toUpperCase()}</span>
           <Link
             to="/"
             onClick={handleLogOut}

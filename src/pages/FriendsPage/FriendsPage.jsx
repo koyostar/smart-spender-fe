@@ -61,7 +61,7 @@ const FriendsPage = ({ userId }) => {
   };
 
   return (
-    <div className="app-container p-4">
+    <div className="app-container py-4 px-10">
       <div className="search-bar flex flex-row my-4">
         <input
           type="text"
@@ -74,7 +74,7 @@ const FriendsPage = ({ userId }) => {
           onClick={handleSearch}
           className="bg-acccol text-white font-bold px-4 ml-3 rounded"
         >
-          Search
+          SEARCH
         </button>
       </div>
       <h2 className="my-4 font-bold">Pending Friends to be added :</h2>
@@ -82,12 +82,12 @@ const FriendsPage = ({ userId }) => {
         {searchResults.map((searchResult) => (
           <div
             key={searchResult._id}
-            className="flex justify-between items-center bg-[#57ABD8] p-2 my-2"
+            className="flex justify-between items-center bg-acccol text-white text-lg rounded-lg p-2 my-2"
           >
-            <span>{searchResult.username}</span>
+            <span>{searchResult.username.toUpperCase()}</span>
             <button
               onClick={() => handleAddFriend(searchResult.username)}
-              className="bg-green-500 text-white p-2 rounded"
+              className="bg-green-500 text-white text-sm p-2 rounded-lg"
             >
               Add Friend
             </button>
@@ -99,12 +99,12 @@ const FriendsPage = ({ userId }) => {
         {friends.map((friend) => (
           <div
             key={friend._id}
-            className="flex justify-between items-center bg-[#57ABD8] p-2 my-2"
+            className="flex justify-between items-center bg-seccol text-pricol text-lg rounded-lg p-2 my-2"
           >
-            <span>{friend.username}</span>
+            <span>{friend.username.toUpperCase()}</span>
             <button
               onClick={() => handleRemoveFriend(friend.username)}
-              className="bg-red-500 text-white p-2 rounded"
+              className="bg-red-500 text-white text-sm p-2 rounded-lg"
             >
               Remove Friend
             </button>

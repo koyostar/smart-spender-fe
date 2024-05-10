@@ -110,10 +110,10 @@ const DebtStats = () => {
             {userDetailsArray.map((userDetail, index) => (
               <tr key={index}>
                 <ul>
-                  <li className="list-inside	list-disc	text-xl	ps-10	">
+                  <li className="list-inside	list-disc	ps-10	">
                     Expense ID {userDetail.expenseId}: {userDetail.username}{" "}
                     owes you{" "}
-                    <span className="bg-neutral-500 text-white px-2 text-2xl">
+                    <span className="bg-acccol text-pricol font-bold px-2 text-2xl">
                       ${userDetail.amountOwed}
                     </span>
                   </li>

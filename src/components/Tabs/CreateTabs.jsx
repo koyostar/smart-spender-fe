@@ -12,7 +12,7 @@ export default function CreateTabs() {
         <Link to="/create/expense">
           <button
             className={`create-tab-btn ${
-              location.pathname === "/create/expense" || "/create"
+              location.pathname === "/create/expense"
                 ? "text-white bg-pricol"
                 : "bg-acccol hover:text-acccol hover:bg-white"
             }`}

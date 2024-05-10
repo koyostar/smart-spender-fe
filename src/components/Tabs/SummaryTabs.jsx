@@ -12,7 +12,7 @@ export default function SummaryTabs() {
         <Link to="/summary">
           <button
             className={`summary-tab-btn ${
-              location.pathname === "/summary" || "/home"
+              location.pathname === "/summary"
                 ? "text-white bg-pricol"
                 : "bg-acccol hover:text-acccol hover:bg-white"
             }`}

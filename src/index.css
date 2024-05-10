@@ -13,11 +13,11 @@
 @tailwind utilities;
 
 .app-container {
-  @apply bg-pricol max-w-xl h-fit rounded-xl pb-10 text-white mx-auto;
+  @apply bg-pricol max-w-xl h-fit rounded-xl pb-10 text-white mx-auto font-bold;
 }
 
 .form-container {
-  padding: 40px;
+  @apply p-5 font-bold;
 }
 
 .tabs {
@@ -32,9 +32,12 @@
   @apply w-72 rounded-t-lg text-2xl py-1 font-bold;
 }
 
+.submit-btn {
+  @apply bg-seccol text-pricol text-opacity-50 active:bg-acccol active:text-white font-bold px-4 ml-3 rounded;
+}
+
 .stats-table {
-  justify-content: center;
-  padding: 0 50px 10px;
+  @apply justify-center px-10;
 }
 
 table {
@@ -61,7 +64,13 @@ td {
 }
 
 h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin: 10px;
+  @apply text-white text-2xl text-center m-3;
+}
+
+input,
+select,
+option {
+  /* display: flex; */
+  /* justify-content: space-between; */
+  @apply text-pricol text-opacity-50 font-normal;
 }
