@@ -40,7 +40,7 @@ const HistoryPage = () => {
       const transfers = response.transfers;
       const users = response.users;
       // loop through each transfer and combine username into a single object
-      async function createTransferList() {
+      const createTransferList = () => {
         const transferRecords = [];
         for (let i = 0; i < transfers.length; i++) {
           const transfer = transfers[i];
@@ -52,9 +52,8 @@ const HistoryPage = () => {
           transferRecords.push(transferRecord);
         }
         return transferRecords;
-      }
-      const transferList = await createTransferList();
-      console.log(transferList);
+      };
+      const transferList = createTransferList();
       setTransfers(transferList);
     } catch (error) {
       console.error("Error fetching your transfers", error);
