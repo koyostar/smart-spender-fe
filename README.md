@@ -14,7 +14,33 @@ SmartSpender App is designed to transform the way you manage your shared expense
 
 Start using SmartSpender [now](https://smart-spender.vercel.app/).
 
+- Step 1: You'll be brought to the landing page:
+
 <img src="https://raw.githubusercontent.com/aishu-ch/smart-spender-fe/main/public/readme/smartspender-landing.png">
+
+- Step 2: Create an account with us:
+
+<img src="https://raw.githubusercontent.com/aishu-ch/smart-spender-fe/main/public/readme/smartspender-signin.png">
+
+- Step 3: Once you've created an account, you'll be navigated to the home page:
+
+<img src="https://raw.githubusercontent.com/aishu-ch/smart-spender-fe/main/public/readme/smartspender-home.png">
+
+- Step 4: You're free to roam around now. Here is how creating your first expense will look like:
+
+<img src="https://raw.githubusercontent.com/aishu-ch/smart-spender-fe/main/public/readme/smartspender-create-expense.png">
+
+- Step 5: Here is how creating your first transfer will look like:
+
+<img src="https://raw.githubusercontent.com/aishu-ch/smart-spender-fe/main/public/readme/smartspender-create-transfer.png">
+
+- Step 6: Here is how your history page will look like:
+
+<img src="https://raw.githubusercontent.com/aishu-ch/smart-spender-fe/main/public/readme/smartspender-history.png">
+
+- Step 7: Lastly, here is how your friend's list will look like:
+
+<img src="https://raw.githubusercontent.com/aishu-ch/smart-spender-fe/main/public/readme/smartspender-friends.png">
 
 ## Features
 
@@ -23,8 +49,6 @@ Start using SmartSpender [now](https://smart-spender.vercel.app/).
 - **Friend List Management:** Maintain a list of friends within the app. Easily add and remove friends, and proceed to manage shared expenses with specific individuals.
 - **Expense History:** Access a comprehensive history of all your expenses and transactions. This feature allows users to review past expenditures, aiding them in becoming better debtors and payees.
 - **Statistical Insights:** Obtain detailed statistical information on your spending habits. The app provides bar charts to help users make informed financial decisions.
-
-<!-- <img src="https://raw.githubusercontent.com/aishu-ch/smart-spender-fe/main/public/readme/smartspender-home.png"> -->
 
 ## Deployment
 
