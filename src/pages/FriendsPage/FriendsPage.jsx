@@ -14,7 +14,6 @@ const FriendsPage = ({ userId }) => {
   const fetchFriends = useCallback(async () => {
     try {
       const fetchedFriends = await getAllFriendsService(userId);
-      console.log(fetchedFriends);
       setFriends(fetchedFriends.friends);
     } catch (error) {
       console.error("Error fetching friends:", error);
