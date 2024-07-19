@@ -12,7 +12,7 @@
 
 SmartSpender App is designed to transform the way you manage your shared expenses among your friends. It consolidates your shared expenses, categorises them, provides calculative assistance and statistical information, of which user's will be able to view their expense and transaction history which will aid them in becoming a better debtor and payee. Let SmartSpender do the work for you!
 
-Start using SmartSpender [now](https://smart-spender.vercel.app/).
+Start using SmartSpender [now](https://smartspender.vercel.app/).
 
 - Step 1: You'll be brought to the landing page:
 
